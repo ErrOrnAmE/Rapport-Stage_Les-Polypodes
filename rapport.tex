@@ -1,45 +1,43 @@
-\documentclass{article}
+\documentclass[a4paper,11pt,final]{article}
+% Pour une impression recto verso, utilisez plutôt ce documentclass :
+%\documentclass[a4paper,11pt,twoside,final]{article}
 
-\usepackage{amsmath}
-\usepackage{graphicx}
+\usepackage[english,francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage[french]{varioref}
 
-\title{Rapport de stage}
-\date{2015-04-13}
-\author{Thibaud Courtoison}
+\newcommand{\reporttitle}{Rapport de Stage}     % Titre
+\newcommand{\reportauthor}{Thibaud \textsc{Courtoison}} % Auteur
+\newcommand{\reportsubject}{Stage de fin d'étude} % Sujet
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\setlength{\parskip}{1ex} % Espace entre les paragraphes
+
+\hypersetup{
+    pdftitle={\reporttitle},%
+    pdfauthor={\reportauthor},%
+    pdfsubject={\reportsubject},%
+    pdfkeywords={rapport} {vos} {mots} {clés}
+}
 
 \begin{document}
-
-    \pagenumbering{gobble}
-    \maketitle
-    \newpage
-    \pagenumbering{arabic}
-    
-    \section{Introduction}
-    
-    This is the introduction
-    
-    \subsection{Sous-introduction?}
-    
-    This is the sous-introduction
-    
-    \paragraph{Paragraph}
-    
-    More text.
-    
-    \subparagraph{Subparagraph}
-    
-    Some more text.
-    
-    \section{Another section}
-    
-    \begin{equation*}
-        f(x) = x^2
-    \end{equation*}
-    
-    \begin{figure}
-        \includegraphics[width=\linewidth]{img/logoUniv.jpg}
-        \caption{Logo Université de Nantes}
-        \label{fiog:logoUniv}
-    \end{figure}
-    
+  \include{title}
+  \cleardoublepage % Dans le cas du recto verso, ajoute une page blanche si besoin
+  \tableofcontents % Table des matières
+  \sloppy          % Justification moins stricte : des mots ne dépasseront pas des paragraphes
+  \cleardoublepage
+  \include{remerciements}
+  \cleardoublepage
+  \include{intro}
+  \cleardoublepage
+  \include{partie1}
+  \cleardoublepage
+  \include{partie2}
+  \cleardoublepage
+  \include{concl}
+  \cleardoublepage
+  \include{references}
 \end{document}
