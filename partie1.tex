@@ -1,1 +1,57 @@
-\section{La première section}
+\section{Analyse et conception}
+
+Comme tous projets de développement, il faut commencer par une phase d'analyse et de conception. Le projet Open Data Event a comme particularité d'avoir déjà eu plusieurs versions avant que je ne commence à travailler dessus. C'est pourquoi la partie d'analyse des versions précédentes étais très importante.
+
+\subsection{Environnement de travail}
+
+J'ai effectué mon stage dans les bureaux de l'entreprise \textbf{Les Polypodes}, situés au 7\up{ème} de l'immeuble \textit{Sigma 2000}. Avec une vue panoramique sur l'île de Nantes, il fallait cependant ne pas se laisser divertir par les différents utilisateurs du terrain multi-sport en bas de l'immeuble.
+
+Côté technique, il a été mis à ma disposition un \textbf{iMac} 21" avec un second écran de la même taille. J'ai donc pu découvrir l'environnement de développement offert par \textbf{OS X}. Globalement, la connaissance de l'environnement \textbf{Linux} m'aura aidé tout au long de l'utilisation d'OS X.
+
+Après m'avoir créé un compte administrateur sur l'ordinateur fourni, j'ai pu installer tout les logiciels nécessaire à la réalisation du projet. Pour des raisons personnels, j'ai choisi d'utiliser les outils suivants:
+
+\begin{itemize}
+    \item \textbf{iTerm} (Version 2.0.0)
+    \item \textbf{Sublime Text 2} (Version 2.0.2)
+    \item \textbf{Google Chrome} (Version 43)
+    \item \textbf{Wireshark} (Version 1.12.5)
+\end{itemize}
+
+Pour l'utilisation de serveurs SabreDAV, Baïkal, ElasticSearch ou autre (XXX citer la section correspondante XXX), j'ai installé une machine virtuelle grâce à \textbf{Vagrant}.
+
+\textbf{LiberTIC} étant une association militant pour les licences libres, il était évident que la majorité de mon travail (qu'il s'agisse de développement ou de compte-rendus) soit mis lui aussi sous licence libre. Ainsi, il est possible de retrouver mon travail sur \textbf{GitHub} à l'adresse suivante: \url{https://github.com/LiberTIC/ODEV2}.
+
+En plus de mon environnement local, j'ai pu accéder à un serveur de pré-production hébergé par OVH.
+
+\subsection{Mise à niveau préliminaire}
+
+Dès le début de mon stage, il a été défini que le projet allait se construire sur des technologies que je ne connaissais pas et/ou ne maitrisais pas. C'est pourquoi il a été convenu que la première semaine de mon stage devais me servir pour effectuer une mise à niveau pour différentes technologies.
+
+Premièrement, j'ai suivi un récapitulatif des commandes \textbf{Git} \cite{gitimmersion} puis lu un article sur les bonnes pratiques de l'utilisation de Git et de ses branches \cite{successfulgit}.
+
+Ensuite, j'ai lu plusieurs articles sur les bonnes pratiques du développement \textbf{PHP} \cite{bestpracticephp} \cite{stupidvssolid}.
+
+Enfin, j'ai lu et appliqué la totalité du \href{http://symfony.com/doc/current/book/index.html}{\textbf{Symfony Book}} (\url{http://symfony.com/doc/current/book/index.html})
+
+\subsection{Analyse des RFC}
+
+Avant de commencer le projet, il fallait déjà que je comprenne toutes les technologies abordés. \textbf{CalDAV} étant la base du projet, j'ai du appronfondir mes connaissances sur le sujet.
+
+Pour re-situer \textbf{CalDAV}, il s'agit d'une extension de WebDAV, elle-même extension du protocol HTTP. Globalement, elle défini et précise la façon d'envoyer des données au format \textbf{iCalendar} sur le réseau Internet.
+
+\textbf{iCalendar}, quand à lui, est un format de fichier (.ical ; .ics ; .icalendar ). Il permet de stocker des événements (tels que "Cinéma à 16h" ou "Réunion service compta' tous les lundi à 9h"). Ce format est ensuite utilisé par des logiciels (tels que iCal, Google Calendar, etc..) pour en faire un affichage plus adapté aux utilisateurs.
+
+Pour plus d'informations sur CalDAV et iCalendar, j'ai établi un "tutoriel" pour expliquer l'utilisation de chacun: \url{https://github.com/LiberTIC/ODEV2/blob/master/doc/Thibaud_Printemps2015/Tutoriel_Comprendre_CalDAV.md}
+
+Pour effectuer ce travail d'analyse, j'ai du lire la presque-totalité des RFC suivantes:
+\begin{itemize}
+    \item \textbf{RFC 4918}: \url{https://tools.ietf.org/html/rfc4918}
+    \item \textbf{RFC 4791}: \url{https://tools.ietf.org/html/rfc4791}
+    \item \textbf{RFC 2324}: \url{https://tools.ietf.org/html/rfc2324}
+\end{itemize}
+
+\subsection{Analyse des versions précédentes}
+
+\subsection{Analyse cahier des charges}
+
+\subsection{Conception UML du projet}
