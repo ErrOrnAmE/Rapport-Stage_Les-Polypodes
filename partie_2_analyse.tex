@@ -92,4 +92,16 @@ Durant cette réunion, je leur ai expliqué ce que j'avais effectué comme trava
 
 \subsubsection{La partie serveur}
 
+J'ai longtemps refléchi sur la pertinence d'utiliser CalDAV pour le projet. En effet, il s'agit d'une extension du protocol HTTP datant de plus de 15 ans qui n'est pas très utilisé.
+
+Cependant, sachant que le partage des données doit être encouragé, il faut s'assurer que n'importe qui puisse inscrire des données dans ODE, que ce soit un(e) commercial(e), un(e) responsable technique ou un(e) secrétaire. Or, l'avantage de CalDAV est que de nombreux clients calendrier (dont Google Calendar et Apple Calendar) permet l'ajout d'un compte compatible CalDAV.
+
+Ainsi, en utilisant CalDAV, nous pourrions disposer d'interfaces utilisateurs déjà optimisé pour la création et la gestion d'événements.
+
+Le deuxième point que j'ai abordé durant la réunion du 30 avril fut la façon dont les événements serait stockés. J'ai d'abord pensé qu'une base de données SQL serait la façon la plus simple et efficace de stocker des événements. Cependant, en réfléchissant à la structure d'un événement (dont je parlerais plus tard), je me suis rendu compte que la structure ne convenait pas à un stockage linéaire comme SQL.
+
+Après m'être renseigné sur les différentes alternatives à SQL, j'ai opté pour ElasticSearch (\url{https://www.elastic.co/}). Il s'agit d'un moteur d'indexation permettant un stockage au format JSON, idéal pour la structure d'un événement. De plus, grâce à ElasticSearch, il sera possible d'implémenter facilement une recherche d'événements par mot-clés.
+
+\subsubsection{La partie application}
+
 \subsection{Conception UML du projet}
