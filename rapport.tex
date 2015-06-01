@@ -11,6 +11,8 @@
 \usepackage[french]{varioref}
 \usepackage{geometry}
 \usepackage{fancyhdr}
+\usepackage{amsthm}
+\usepackage [autostyle]{csquotes}
 
 \pagestyle{fancy}
 \lhead{Thibaud COURTOISON}
@@ -18,11 +20,19 @@
 
 \geometry{hmargin=2.5cm,vmargin=2.5cm}
 
-\newcommand{\reporttitle}{Rapport de Stage}     % Titre
+\newcommand{\reporttitle}{Rapport de Stage de fin de DUT}     % Titre
 \newcommand{\reportauthor}{Thibaud \textsc{Courtoison}} % Auteur
 \newcommand{\reportsubject}{Stage de fin d'étude} % Sujet
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \setlength{\parskip}{1ex} % Espace entre les paragraphes
+
+\newenvironment{aquote}[1]{
+  \pushQED{#1}
+  \begin{quotation}
+  }{
+  \par\nointerlineskip\noindent\hfill(\popQED)
+  \end{quotation}
+}
 
 \hypersetup{
     pdftitle={\reporttitle},%
