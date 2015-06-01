@@ -10,9 +10,9 @@ Une des particularités de mon stage est le fait que je travaillais en collabora
 
 \nb{Ici, explication personnelle de l'Open Data puis intro de LiberTIC}
 
-LiberTIC est une association nantaise, fondé en 2009, de promotion de la Culture Libre et des Données Ouvertes dans l'espace francophone. Elle est particulièrement identifiée comme l'une des principales associations françaises œuvrant pour la promotion de l'Open Data.
+\textbf{LiberTIC} est une association nantaise, fondé en 2009, de promotion de la Culture Libre et des Données Ouvertes dans l'espace francophone. Elle est particulièrement identifiée comme l'une des principales associations françaises œuvrant pour la promotion de l'Open Data.
 
-LiberTIC publie notamment une carte de France de l'Open Data\cite{cartopendata} identifiant les projets de collectivités publiques, en cours ou déjà réalisés, de mise à disposition de données publiques transversales.
+LiberTIC publie notamment une carte de France de l'Open Data\rf{cartopendata} identifiant les projets de collectivités publiques, en cours ou déjà réalisés, de mise à disposition de données publiques transversales.
 
 Durant mon stage, j'ai pu rencontrer plusieurs personnes de l'association, tels que:
 
@@ -26,12 +26,54 @@ Durant mon stage, j'ai pu rencontrer plusieurs personnes de l'association, tels 
 
 \nb{Ici, explication personnelle du logiciel libre puis intro des Polypodes}
 
-Les Polypodes est une agence web créé en 2005 par \textit{M Antonio-Manuel FIDALGO} et qui emploie actuellement 8 salariés. Les bureaux de l'entreprise \textbf{Les Polypodes} sont situés au 7\up{ème} étage de l'immeuble \textit{sigma 2000}.
+\begin{aquote}{Wikipédia}
+``Le Polypode commun (Polypodium vulgare L.) est une fougère de la famille des Polypodiaceae. Il est parfois appelé réglisse des bois ou réglisse sauvage. En effet, son rhizome a été utilisé à des fins médicinales, mais aussi gastronomiques.''
+\end{aquote}
+
+\textbf{Les Polypodes} est une agence web créé en 2005 par \textit{M. Antonio-Manuel FIDALGO} et qui emploie actuellement 8 salariés. Les bureaux de l'entreprise sont situés au 7\up{ème} étage de l'immeuble \textit{Sigma 2000}.
 
 \nb{I need more informations}
 
 \subsection{L'aggrégateur d'événement (ODE)}
 
+\nb{Define what is ODE}
+
 \subsection{Les premières versions}
+
+Avant que je ne commence à travailler dessus, ce projet à traversé de nombreuses phases d'analyses, de conceptions et de développement.
+
+\subsubsection*{La première réunion}
+
+L'élément déclencheur de ce projet est la réunion du 11 juin 2014 à Stéréolux avec l'association LiberTIC et quelques acteurs de l'événementiel à Nantes. Il est apparu qu'il y avait une nécessité d'améliorer la diffusion des données.
+
+C'est ainsi qu'est né le projet ODE (Open Data Event). Il s'agit d'un aggrégateur d'événement permettant de relier les fournisseurs d'événements (les organisateurs de festivals, concerts, conférence, etc...) avec les réutilisateurs d'événements (les utilisateurs de l'API, les journaux, etc...).
+
+Cette réunion a permis de produire un cahier des charges pour le projet (disponible à cette addresse: \url{https://github.com/LiberTIC/ODEV2/blob/master/doc/Documents/120622_ODE_cahierDesCharges_MakinaCorpus.pdf} )
+
+\subsubsection*{La première version}
+
+Makina Corpus ( \url{http://makina-corpus.com/} ), entreprise de développement de logiciels libres, a répondu au cahier des charges en proposant de réaliser le projet. Plusieurs mois plus tard, la première version était fini et fut présenté à des responsable de l'association LiberTIC.
+
+Cependant, durant la réunion, il est apparu de nombreuses différences dans la direction du projet mené par Makina Corpus avec la direction voulu par l'association. A la fin de la réunion, il a été décidé de ne pas continuer la relation entre l'association et l'entreprise.
+
+L'application développé par Makina Corpus est programmé en Python. Il s'agit d'une API REST qui permet aux clients d'intéragir avec les événements. Le code est basé sur le \textbf{Pyramid web framework} et \textbf{Cornice}.
+
+Le problème de cette application est qu'elle ne répond pas aux attentes de LiberTIC par rapport à l'accessibilité et la facilité d'utilisation. En effet, il n'y a pas d'interface utilisateur disponible et l'utilisation d'une API REST est presque impossible sans connaissance en informatique.
+
+\subsubsection*{La reprise par Les Polypodes}
+
+Suite à une réunion de l'association LiberTIC abordant l'échec de la première version, Ronan Guilloux de l'entreprise Les Polypodes, présent à cette réunion, fit la proposition suivante: Les Polypodes serait prêt à accueillir des stagiaires pour effectuer le projet. Les stagiaires seraient accueilli par l'entreprise et l'association s'engagerait à faire un suivi plus approfondit du projet pour éviter la même fin que la version précédente.
+
+\subsubsection*{Version 2 - Les premiers stagiaires}
+
+En janvier 2015, deux stagiaires de BTS chez Les Polypodes ont commencé à travailler sur ODE version 2.
+
+Leur travail a été de produire un prototype d'une application sous Symfony2 permettant une gestion des événements avec un serveur CalDAV. Ils ont fait un comparatif des serveurs CalDAV et fait une analyse des sémantiques disponibles pour les événements.
+
+Sachant que la durée de leur stage n'était que de six semaines, ils n'ont pas pu faire évoluer le prototype ( disponible à cette adresse: \url{https://github.com/polypodes/CalDAVClientPrototype} )
+
+\subsubsection*{Version 2 - Mon stage}
+
+Depuis le 13 avril 2015, je travaille donc sur la version 2 du projet. Le but est de pouvoir réaliser le projet dans le temps qui m'est imparti ( 10 semaines ).
 
 \subsection{Ma place sur le projet}

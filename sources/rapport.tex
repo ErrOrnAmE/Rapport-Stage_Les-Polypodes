@@ -31,13 +31,20 @@
 \newenvironment{aquote}[1]{
   \pushQED{#1}
   \begin{quotation}
+  \it
   }{
   \par\nointerlineskip\noindent\hfill(\popQED)
   \end{quotation}
 }
 
 %Nota Bene for me
-\newcommand{\nb}[1]{\textcolor{red}{ #1 }}
+\newcommand{\nb}[1]{\textcolor{red}{#1}}
+
+%Better cite command
+\newcommand{\rf}[1]{\up{\textcolor{blue}{\cite{#1}}}}
+
+%For corrections and notes by ronan
+\newcommand{\ronan}[1]{\textcolor{cyan}{#1}}
 
 \hypersetup{
     pdftitle={\reporttitle},%
@@ -63,7 +70,8 @@
   \include{partie_1}
   \cleardoublepage
   \include{partie_2}
-  %\include{partie_2_analyse}
+  \cleardoublepage
+  \include{partie_3}
   \cleardoublepage
   \include{concl}
   \cleardoublepage
