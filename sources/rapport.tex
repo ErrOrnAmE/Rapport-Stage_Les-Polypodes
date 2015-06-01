@@ -12,7 +12,8 @@
 \usepackage{geometry}
 \usepackage{fancyhdr}
 \usepackage{amsthm}
-\usepackage [autostyle]{csquotes}
+\usepackage[autostyle]{csquotes}
+\usepackage{color}
 
 \pagestyle{fancy}
 \lhead{Thibaud COURTOISON}
@@ -26,6 +27,7 @@
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \setlength{\parskip}{1ex} % Espace entre les paragraphes
 
+%for quoting
 \newenvironment{aquote}[1]{
   \pushQED{#1}
   \begin{quotation}
@@ -33,6 +35,9 @@
   \par\nointerlineskip\noindent\hfill(\popQED)
   \end{quotation}
 }
+
+%Nota Bene for me
+\newcommand{\nb}[1]{\textcolor{red}{ #1 }}
 
 \hypersetup{
     pdftitle={\reporttitle},%
