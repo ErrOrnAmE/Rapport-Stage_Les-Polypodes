@@ -65,14 +65,20 @@
 
 \begin{table}[h]
 \begin{adjustwidth}{-1.8cm}{}
-\begin{tabular}{lclll}
-\multicolumn{1}{c}{{\bf Propriété}} & {\bf Type} & \multicolumn{1}{c}{{\bf Description}} & \multicolumn{1}{c}{{\bf Source}} & \multicolumn{1}{c}{{\bf Exemple}} \\
+\begin{tabular}{|l || c | l | l | l |}
+
+\hline
+{\bf Propriété}&{\bf Type}&{\bf Description}&{\bf Source}&{\bf Exemple}\\
+\hline
+\hline
 
 {\bf Base} &  &  &  &  \\
 
 Nom & Texte & Nom court de l'événement & iCalendar & Concert Shakaponk \\
 UID & Nombre & Identifiant Unique de l'event & iCalendar & SL-2015-XYZ-004 \\
 Description & Texte & Description de l'événement & iCalendar & Concert de rock avec {[}...{]} \\
+
+\hline
 
 {\bf Date et heure} &  &  &  &  \\
 
@@ -81,12 +87,16 @@ Date fin & Date & Date et heure de fin & iCalendar & 2015-06-20 / 23:30 \\
 Date création & Date & Date de création de l'event & ODE\_V2 & 2015-04-01 / 13:37 \\
 Date modification & Date & Date de modif de l'événement & ODE\_V2 & 2015-04-03 / 20:15 \\
 
+\hline
+
 {\bf Localisation} &  &  &  &  \\
 
 Lieu & Texte & Nom de l'endroit & iCalendar & Zénith Nantes \\
 Emplacement & Texte & Nom de l'endroit & ODE\_V2 & Salle de concert \#3 \\
 Géolocalisation & Geo & Géolocalisation de l'événement & iCalendar & 47.229234, -1.628550 \\
 Capacité du lieu & Nombre & Capacité du lieu de l'event & ODE\_V1 & 4000 (personnes) \\
+
+\hline
 
 {\bf Organisation} &  &  &  &  \\
 
@@ -97,30 +107,44 @@ Organisateur & Texte & Organisateur de l'événement & schema.org & Stéréolux 
 Sous-Evénement & UID & UID d'un sous-événement & schema.org & SL-2015-XYZ-009 \\
 Super-Evénement & UID & UID d'un sur-événement & schema.org & SL-2015-XYZ-001 \\
 
+\hline
+
 {\bf URLs} &  &  &  &  \\
 
 URL & URL & URL vers le site ODEV2 & iCalendar & http://ODEV2/event/XYZ004 \\
 URL orga & URL & URL de l'event sur le site de l'orga & schema.org & http://stereolux/event/XYZ004 \\
 URLs médias & URLs & URL de média compatible oEmbed & schema.org & http://website/image.jpg \\
+
+\hline
+
 {\bf International} &  &  &  &  \\
 
 Langue & Texte & Langue de l'événement & ODE\_V1 & FR \\
+
+\hline
 
 {\bf Tarifs} &  &  &  &  \\
 
 Prix standard & Nombre & Prix au tarif normal & ODE\_V2 & 10 \\
 Prix réduit & Nombre & Prix au tarif réduit & ODE\_V2 & 7.5 \\
-Prix enfant & \multicolumn{1}{l}{Nombre} & Prix au tarif enfant & ODE\_V2 & 5 \\
+Prix enfant & Nombre & Prix au tarif enfant & ODE\_V2 & 5 \\
 
-{\bf Contacts} & \multicolumn{1}{l}{} &  &  &  \\
+\hline
 
-Contact - Nom & \multicolumn{1}{l}{Texte} & Nom du contact & ODE\_V1 & John Smith \\
-Contact - Email & \multicolumn{1}{l}{Email} & Email du contact & ODE\_V1 & john.smith@email.com \\
+{\bf Contacts} & &  &  &  \\
 
-{\bf Catégorisation} & \multicolumn{1}{l}{} &  &  &  \\
+Contact - Nom & Texte & Nom du contact & ODE\_V1 & John Smith \\
+Contact - Email & Email & Email du contact & ODE\_V1 & john.smith@email.com \\
 
-Catégorie & \multicolumn{1}{l}{Texte} & Catégorie de l'événement & ODE\_V1 & Concert \\
-Tags & \multicolumn{1}{l}{Texte} & Tags de l'événement & ODE\_V1 & Rock;Alternatif;{[}...{]}
+\hline
+
+{\bf Catégorisation} & &  &  &  \\
+
+Catégorie & Texte & Catégorie de l'événement & ODE\_V1 & Concert \\
+Tags & Texte & Tags de l'événement & ODE\_V1 & Rock;Alternatif;{[}...{]} \\
+
+\hline
+
 \end{tabular}
 \end{adjustwidth}
 \end{table}
