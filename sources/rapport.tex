@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt,final]{article}
+\documentclass[a4paper,11pt,final,oneside]{article}
 % Pour une impression recto verso, utilisez plutôt ce documentclass :
 %\documentclass[a4paper,11pt,twoside,final]{article}
 
@@ -86,37 +86,37 @@
 \graphicspath{{../img/}}
 
 \begin{document}
-  \include{title}
+  \input{title}
   \cleardoublepage % Dans le cas du recto verso, ajoute une page blanche si besoin
   \sloppy          % Justification moins stricte : des mots ne dépasseront pas des paragraphes
 
   \part{Introduction}
   
-  \include{remerciements}
+  \input{remerciements}
   \cleardoublepage
-  \include{resume}
+  \input{resume}
   \cleardoublepage
-  \include{sommaire}
+  \input{sommaire}
   \cleardoublepage
-  \include{intro}
+  \input{intro}
   \cleardoublepage
 
   \part{Développement}
 
-  \include{partie_1}
+  \input{partie_1}
   \cleardoublepage
-  \include{partie_2}
+  \input{partie_2}
   \cleardoublepage
-  \include{partie_3}
+  \input{partie_3}
   \cleardoublepage
-  \include{partie_4}
+  \input{partie_4}
   \cleardoublepage
 
   \part{Conclusion}
 
-  \include{concl}
+  \input{concl}
   \cleardoublepage
-  \include{references}
+  \input{references}
   \cleardoublepage
-  \include{annexes}
+  \input{annexes}
 \end{document}

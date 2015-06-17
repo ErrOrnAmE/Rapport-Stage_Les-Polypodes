@@ -17,20 +17,20 @@ Symfony propose de construire une application selon la structure suivante:
     - app/
         - cache/
         - config/           /* Tout les fichiers de configuration
-                               avec les parametres et les routes  */
+                               avec les paramètres et les routes  */
         - logs/
         - Resources/        // Les fichiers de ressources (Templates html)
         - AppKernel.php     // Base de l'application, enregistre les bundles
         - ...
 
-    - bin/                  // Gere par Symfony, pas toucher
+    - bin/                  // Géré par Symfony, pas toucher
 
     - doc/                  // La documentation de l'application
 
     - src/                  // La plupart de notre code est ici
         - AppBundle         // Bundle principal de l'application
 
-            - [...]         // Plus de details a suivre
+            - [...]         // Plus de détails à suivre
 
     - vendor/               /* Ici se trouve les bundles externes
                                dont Symfony                       */
@@ -39,7 +39,7 @@ Symfony propose de construire une application selon la structure suivante:
                                js, les images, etc... Il s'agit du dossier
                                qui sera accessible aux utilisateurs      */
 
-    - composer.json         /* Ce fichier liste tout les bundles que 
+    - composer.json         /* Ce fichier liste tous les bundles que 
                                nous utilisons                       */
 \end{lstlisting}
 \caption{Architecture proposé par le framework Symfony}
@@ -201,9 +201,37 @@ Grâce à de nombreuses recherches sur le sujet, j'ai découvert que symfony pro
 
 Niveau Backend, SabreDAV a été conçu pour laisser le choix aux utilisateurs. En effet, la librairie utilise des interfaces pour les classes de Backend, ainsi, j'ai pu implémenter moi même les classes, d'abord avec ElasticSearch, puis avec PostgreSQL.
 
-\subsection{Implémentation ElasticSearch}
+Les trois classes de Backend que j'ai implémenté sont les suivantes:
 
-\subsection{Implémentation de PostgreSQL}
+\textbf{Auth.php}: Celle ci sert à récupérer le mot de passe chiffré en fonction du nom d'utilisateur.
+
+\textbf{Principals.php}: Cette classe permet de gérer l'accès, la création et la suppression des `` Principals ''. Il s'agit d'un concept propre à CalDAV, que l'on pourrais résumer par un dossier pour gérer les différents calendriers.
+
+\textbf{Calendar.php}: C'est la classe la plus importante du Backend. En effet, elle rassemble toutes les fonctions pour créer, récupérer, modifier et supprimer un calendrier ou un événement. Elle s'occupe aussi des souscriptions et de lister les calendriers présents sur le serveur. J'utilise cette classe de nombreuses fois dans mes controlleurs, car même si elle est utilisé par SabreDAV, elle s'adapte très facilement à n'importe quelle utilisation.
+
+\subsection{Implémentation avec ElasticSearch}
+
+\textbf{ElasticSearch} est un moteur de d'indexation et de recherche. Les principaux atouts d'ElasticSearch sont sa capacité à stocker les données sous le format JSON, ainsi que sa capacité à offrir de nombreux graphiques et statistiques sur l'utilisation du service.
+
+ElasticSearch se base sur Apache Lucene, il est donc propulsé par Java. L'installation d'ElasticSeach requiert de plus la version 1.8 de la Java Virtual Machine. ElasticSearch n'étant pas adapté à OSX, j'ai du installer une machine virtuelle sur mon Mac. Pour cela, j'ai utilisé \textbf{Vagrant}.
+
+Après avoir installé Vagrant, il suffit d'éxécuter les commandes suivantes:
+
+\begin{lstlisting}
+vagrant init hashicorp/precise32
+vagrant up
+vagrant ssh
+\end{lstlisting}
+
+Et on se retrouve dans une machine virtuelle avec Ubuntu 14.04.
+
+En ce qui concerne l'installation d'ElasticSearch sur la machine virtuelle, j'ai produit la \blurl{https://github.com/LiberTIC/ODEV2/blob/77e78f9cc36d0bc5c22eadbf2e39ab2959f10c45/doc/Elasticsearch_install.md}{Documentation de l'installation} sur le Github pour que d'autres puissent le refaire facilement.
+
+Pour faire le lien entre Symfony et le serveur ElasticSearch, j'ai créé la classe ESManager permettant de faire des requêtes de façon simple depuis les controlleurs. De plus, je l'ai ajouté au ServiceContainer de Symfony pour l'utiliser facilement.
+
+Un des problèmes rencontré avec Elasticsearch était le fait que l'utilisation que j'en ai fait: le stockage complet des données, posait des problèmes notamment pour l'indexation du jCal d'un événement.
+
+\subsection{Implémentation avec PostgreSQL}
 
 \subsection{Fondation d'une API REST}
 
