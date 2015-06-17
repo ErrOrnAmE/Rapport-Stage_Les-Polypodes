@@ -1,8 +1,85 @@
 \section{Développement et Tests}
 
+Après la phase de Conception, viens la phase de développement, suivi de la phase de test.
+
 \subsection{Symfony 2}
 
+Comme expliqué précédemment, pour ce projet, j'ai utilisé \textbf{Symfony 2}. Il s'agit d'un framework PHP proposant de nombreux composant pour accélérer et faciliter le développement d'une application PHP. De plus, Symfony possède une communauté très impliqué, ce qui permet de trouver de très nombreuses documentation très bien rédigé.
+
+Symfony est sponsorisé par SensioLabs, une entreprise française. Sponsorisé car, même si cette entreprise a développé la première version du framework, elle est maintenant entretenu par la communauté, en tant que projet Open-Source (\textit{MIT License}).
+
+Symfony offre la possibilité d'ajouter de nombreux `` Bundles '' indépendants permettant d'ajouter des fonctionnalités adaptés à nos besoin. De plus, Symfony utilise \textbf{Composer} qui est un `` Dependency Manager '' (ou gestionnaire de dépendance en français) qui permet d'ajouter un Bundle au projet en une seule commande: \textit{composer require "genemu/form-bundle"}
+
+Symfony propose de construire une application selon la structure suivante:
+
+
+\begin{lstlisting}
+
+    - app/
+        - cache/
+        - config/           /* Tout les fichiers de configuration
+                               avec les parametres et les routes  */
+        - logs/
+        - Resources/        // Les fichiers de ressources (Templates html)
+        - AppKernel.php     // Base de l'application, enregistre les bundles
+        - ...
+
+    - bin/                  // Gere par Symfony, pas toucher
+
+    - doc/                  // La documentation de l'application
+
+    - src/                  // La plupart de notre code est ici
+        - AppBundle         // Bundle principal de l'application
+
+            - [...]         // Plus de details plus tard
+
+    - vendor/               /* Ici se trouve les bundles externes
+                               dont Symfony                       */
+
+    - web/                  /* Ici, nous trouvons tout les fichiers css,
+                               js, les images, etc... Il s'agit du dossier
+                               qui sera accessible aux utilisateurs      */
+
+    - composer.json         /* Ce fichier liste tout les bundles que 
+                               nous utilisons                       */
+
+\end{lstlisting}
+
+\newpage
+
+
+
+
+Un des composants que j'ai le plus utilisé dans Symfony est: `` HTTPFoundation ''. En effet, il gère de lui même les requêtes récupérer pour les offrir dans une classe \textbf{Request} et il est possible de créer une réponse très simplement en utilisant la classe \textbf{Response}.
+
+
+\begin{lstlisting}[frame=single]
+<?php
+
+[...]
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
+[...]
+
+function indexAction(Request $request) {
+
+    $name = $request->query->get('name');
+
+    return new Response("Hello".$name);
+}
+[...]
+
+\end{lstlisting}
+
+Comme on peux le voir avoir les quelques lignes de code précédentes, il est facile de saluer un utilisateur nous donnant son nom. Si nous voulions faire une page privé, nous pourions renvoyer un code \textbf{403 Forbidden} simplement en ajoutant 403 en argument du constructeur de Response. Simple!
+
+Mais durant le développement d'ODE, j'ai utilisé de nombreux autres composants de Symfony: \textit{Controller}, \textit{FormBuilder}, \textit{Routing}, etc...
+
 \subsection{Intégration de SabreDAV}
+
+SabreDAV, 
 
 \subsection{Implémentation ElasticSearch}
 
