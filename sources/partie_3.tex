@@ -4,17 +4,16 @@ Après la phase de Conception, viens la phase de développement, suivi de la pha
 
 \subsection{Symfony 2}
 
-Comme expliqué précédemment, pour ce projet, j'ai utilisé \textbf{Symfony 2}. Il s'agit d'un framework PHP proposant de nombreux composant pour accélérer et faciliter le développement d'une application PHP. De plus, Symfony possède une communauté très impliqué, ce qui permet de trouver de très nombreuses documentation très bien rédigé.
+Comme expliqué précédemment, pour ce projet, j'ai utilisé \textbf{Symfony 2}. Il s'agit d'un framework PHP suivant le pattern MVC proposant de nombreux composant pour accélérer et faciliter le développement d'une application PHP. De plus, Symfony possède une communauté très impliqué, ce qui permet de trouver de très nombreuses documentation très bien rédigé.
 
-Symfony est sponsorisé par SensioLabs, une entreprise française. Sponsorisé car, même si cette entreprise a développé la première version du framework, elle est maintenant entretenu par la communauté, en tant que projet Open-Source (\textit{MIT License}).
+Symfony est sponsorisé par SensioLabs, une entreprise française. Sponsorisé car, même si cette entreprise a développé la première version du framework, elle est maintenant entretenu par la communauté, en tant que projet Open-Source (\textit{MIT License}). Il est actuellement dans sa version 2.7.
 
 Symfony offre la possibilité d'ajouter de nombreux `` Bundles '' indépendants permettant d'ajouter des fonctionnalités adaptés à nos besoin. De plus, Symfony utilise \textbf{Composer} qui est un `` Dependency Manager '' (ou gestionnaire de dépendance en français) qui permet d'ajouter un Bundle au projet en une seule commande: \textit{composer require "genemu/form-bundle"}
 
 Symfony propose de construire une application selon la structure suivante:
 
-
+\begin{figure}[h]
 \begin{lstlisting}
-
     - app/
         - cache/
         - config/           /* Tout les fichiers de configuration
@@ -31,7 +30,7 @@ Symfony propose de construire une application selon la structure suivante:
     - src/                  // La plupart de notre code est ici
         - AppBundle         // Bundle principal de l'application
 
-            - [...]         // Plus de details plus tard
+            - [...]         // Plus de details a suivre
 
     - vendor/               /* Ici se trouve les bundles externes
                                dont Symfony                       */
@@ -42,17 +41,17 @@ Symfony propose de construire une application selon la structure suivante:
 
     - composer.json         /* Ce fichier liste tout les bundles que 
                                nous utilisons                       */
-
 \end{lstlisting}
+\caption{Architecture proposé par le framework Symfony}
+\end{figure}
 
 \newpage
 
-
-
+\subsubsection*{Les composants Symfony}
 
 Un des composants que j'ai le plus utilisé dans Symfony est: `` HTTPFoundation ''. En effet, il gère de lui même les requêtes récupérer pour les offrir dans une classe \textbf{Request} et il est possible de créer une réponse très simplement en utilisant la classe \textbf{Response}.
 
-
+\begin{figure}[h]
 \begin{lstlisting}[frame=single]
 <?php
 
@@ -72,14 +71,134 @@ function indexAction(Request $request) {
 [...]
 
 \end{lstlisting}
+\caption{Code simplifié avec exemple d'HTTPFoundation}
+\end{figure}
 
-Comme on peux le voir avoir les quelques lignes de code précédentes, il est facile de saluer un utilisateur nous donnant son nom. Si nous voulions faire une page privé, nous pourions renvoyer un code \textbf{403 Forbidden} simplement en ajoutant 403 en argument du constructeur de Response. Simple!
+Comme on peux le voir sur les quelques lignes de code précédentes, il est facile de saluer un utilisateur nous donnant son nom. Si nous voulions faire une page privé, nous pourions renvoyer un code \textbf{403 Forbidden} simplement en ajoutant 403 en argument du constructeur de Response. Simple!
 
-Mais durant le développement d'ODE, j'ai utilisé de nombreux autres composants de Symfony: \textit{Controller}, \textit{FormBuilder}, \textit{Routing}, etc...
+Durant le développement d'ODE, j'ai utilisé de nombreux autres composants de Symfony: \textit{Controller}, \textit{FormBuilder}, \textit{Routing}, etc...
+
+\vspace{1cm}
+
+Pour revenir sur l'architecture proposé par Symfony (Figure 1), nous pouvions trouver le dossier AppBundle qui est prévu pour y déposer la majorité de notre code.
+
+\nb{Change number figure}
+
+Il est conseillé de mettre son code selon l'architecture suivante:
+
+\subsubsection*{Backend}
+
+Dans le dossier \textbf{Backend/}, j'ai déposé les quelques classes permettant de stocker et de retrouver des données dans la base données: \textit{CalDAV/Auth.php}, \textit{CalDAV/Principals.php}, \textit{CalDAV/Calendar.php} et \textit{Users/UserManager.php}.
+
+Les trois premières classes étant lié à SabreDAV, je vous en parlerais dans la section suivante. La dernière, \textbf{UserManager}, est, quant à elle, lié à \textbf{FOSUSerBundle}; il s'agit d'un bundle permettant une gestion simplifié des utilisateurs. Il gère, entre autres, l'inscription, la connexion, le chiffrage des mots de passes, les sessions liés à l'utilisateurs, les rôles, etc...
+
+\subsubsection*{Controller}
+
+Dans ce dossier, j'ai déposé les classes de mes Controlleurs (\textit{sachant que Symfony respecte le design pattern MVC}).
+
+La première classe, \textbf{DefaultController} est le controlleur le plus léger (2 fonctions): Index du site et page de test.
+
+La seconde classe, \textbf{CalDAVController} est le controlleur permettant de faire le lien avec SabreDAV (plus d'explication dans la section 3.2).
+
+La troisième, \textbf{BrowserController} est le controlleur définissant le Front-End de l'application. C'est lui qui gère les pages et les formulaires proposé à l'utilisateur. Il est notemment en lien avec FOSUserBundle pour intégrer la connexion et l'inscription des utilisateurs.
+
+Enfin, \textbf{APIController} est le controlleur délivrant l'API. Il s'agit là de la partie de l'application délivrant la promesse de l'\textbf{Open Data}.
+
+\subsubsection*{Entity}
+
+Le dossier \textbf{entity/} est celui qui contient le \textbf{modèle} de l'application.
+
+\nb{Plus de truc}
+
+\subsubsection*{Form}
+
+Ce dossier permet de gérer la création des formulaires en lien avec le modèle. Pour proposer des formulaires ergonomiques, j'ai utilisé un bundle, \textbf{MopaBootstrapBundle}, qui permettait d'inclure \textbf{Bootstrap} dans l'application, notemment dans la création des champs des formulaires.
+
+\nb{Image du formulaire}
+
+\subsubsection*{Resources}
+
+Ce dossier est en lien avec le dossier \textit{app/Resource/}. En effet, il possède aussi des fichiers de configuration, de routes, mais aussi les librairies js et css à inclure dans le dossier \textit{web/}. Pour les besoins de l'application, j'ai écrit un fichier Javascript simple pour afficher un calendrier avec une coloration sur les dates de l'événements.
+
+\nb{Image du calendrier}
+
+\subsubsection*{Service}
+
+Un service (dans Symfony) est un simple objet PHP qui remplit une fonction. Cette fonction peut être très simple: envoyer des e-mails, vérifier qu'un texte n'est pas un spam, etc. Un service est donc un objet PHP qui a pour vocation d'être accessible depuis n'importe où dans le code. Pour chaque fonctionnalité dont je peux avoir besoin dans mon application, je peux créer un ou plusieurs services.
+
+Symfony utilise un `` ServiceContainer '' qui enregistre tout les services. Il est ainsi possible d'accèder aux services depuis les controlleurs facilement:
+
+\begin{figure}[h]
+\begin{lstlisting}[frame=single]
+<?php
+
+[...]
+
+function indexAction(Request $request) {
+
+    $slug = $this->get('slugify')->slugify("ExEmplE èéàó à");
+
+    return new Response($slug);
+
+    /* Le code précédent renverra la chaine de caractère suivante:
+       exemple-eeao-a
+    */
+}
+[...]
+
+\end{lstlisting}
+\caption{Code simplifié avec exemple d'un Service}
+\end{figure}
+
+\newpage
+
+Le code précédent est une démonstration de l'appel au service \textbf{Slugify}, permettant de générer des slug `` URL Friendly ''.
 
 \subsection{Intégration de SabreDAV}
 
-SabreDAV, 
+Après avoir décidé d'utiliser le protocol CalDAV pour le projet, j'ai cherché une librairie PHP permettant d'implémenter CalDAV dans Symfony. Malheureusement, il n'existe pas de Bundle tout prêt pour cette utilisation. Cependant, durant ma recherche, j'ai découvert \textbf{SabreDAV}. Il s'agit d'un serveur php capable de gérer les rêquetes ``PROPPATCH'', ``MKCALENDAR'', etc. propres à CalDAV.
+
+SabreDAV un projet Open Source développé par Fruux. Fruux fait parti du \textbf{Calendaring and Scheduling Consortium}, discutant sur le standard CalDAV, au côté d'Apple, Google, IBM et d'autres.
+
+SabreDAV possède sa propre architecture, il a donc fallu l'intégrer dans l'application. Pour cela, j'ai créé un Controlleur spécialement pour la partie CalDAV (CalDAVController.php). Au niveau des routes, j'ai les ai toutes redirigés vers la méthode `` indexAction '' qui controlleur. Ainsi, j'ai pu transmettre la requête directement au système de SabreDAV.
+
+Le problème que j'ai rencontré par la suite était le fait que SabreDAV gérait lui-même la constuction et l'envoi de la réponse, ce qui perturbais le fonction de Symfony.
+
+Grâce à de nombreuses recherches sur le sujet, j'ai découvert que symfony proposait une classe, \textbf{StreamedResponse}, permettant de gérer ce cas de figure. En effet, StreamedResponse prend en argument une fonction de callback dans laquelle la réponse envoyé par SabreDAV sera attrapé par Symfony puis renvoyé vers l'utilisateur. Cela permet aussi de logger les messages renvoyé, ce qui m'a été très utile tout au long du développement de l'application.
+
+\newpage
+
+\begin{figure}[h]
+\begin{lstlisting}[frame=single]
+<?php
+
+[...]
+
+    public function indexAction(Request $request)
+    {
+        [...]
+
+        $server = new CalDAVServer();
+
+        $callback = function () use ($server, $request) {
+
+            [...]
+
+            $server->exec();
+
+            /* These two lines log the request and the response */
+            $responseBody = $server->httpResponse->getBodyAsString();
+            $this->logIt($request, $server->httpResponse, $responseBody);
+        };
+
+        return new StreamedResponse($callback);
+    }
+[...]
+
+\end{lstlisting}
+\caption{Code simplifié avec exemple de StreamedResponse}
+\end{figure}
+
 
 \subsection{Implémentation ElasticSearch}
 
