@@ -1,1 +1,28 @@
-\section{En marche vers ODEv2.1}
+\section{En marche vers ODE v2.1}
+
+Même si j'ai rempli un partie importante du cahier des charges et ai effectué toutes les tâches qui m'ont été confié au début de mon stage, \textbf{Open Data Event} doit encore évoluer pour atteindre un niveau de maturité et de fonctionnalité suffisant pour être proposé au grand public ou pour être intégrer à d'autres projets.
+
+\subsection{Finir l'API}
+
+Même si toutes les fonctionnalités de l'API ont été développé, je n'ai pas eu le temps d'implémenter la gestion de l'authentification de l'API. Il n'est pas possible, en l'état, de proposer le service au grand public sans authentification.
+
+\subsection{Import / Export}
+
+Pour permettre à des organismes de faire une migration vers ODE, il faut pouvoir proposer un import simple des données, sous plusieurs formats (.ics,.xml,.csv). De plus, il est possible d'imaginer un import automatique des données depuis les sites des fournisseurs d'événements.
+
+\subsection{Formulaires}
+
+ODE v2.1 devrait proposer une customisation simplifié du formulaire de création d'événement. En effet, chaque instance d'ODE aura des besoins spécifiques quant à sa description d'un événement.
+Une des possibilités serait de mettre à disposition un Schéma sémantique qui serait analysé pour créer un formulaire adapté.
+
+De plus, il serait interessant de pouvoir intégrer un service de géolocalisation permettant à chaque événement d'être situé sur une carte. Cependant, il serait important de laisser la possibilité le service de reverse-geocoding de son choix, pour promouvoir les services libres tels que Open Street Map et ne pas obliger l'utilisation de Google Map.
+
+Enfin, utiliser une auto-complétion sur les champs de Categorie et de Tags ne serait pas de trop pour ne pas multiplier les données inutilement.
+
+\subsection{Brouillons}
+
+Actuellement, dès la création d'un événement, il se retrouve en accès publique. Il serait intéressant de pouvoir créer des `` brouillons '' d'événements pour laisser le temps de remplir tous les champs de l'événement.
+
+\subsection{Plein d'autres fonctionnalités}
+
+Enfin, il y a de nombreuses autres fonctionnalités intéressantes à intégrer au projet, que cela soit l'authentification à OAuth2, l'utilisation de ReCaptcha et d'autres.

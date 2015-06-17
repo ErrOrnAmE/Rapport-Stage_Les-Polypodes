@@ -114,13 +114,23 @@ Le dossier \textbf{entity/} est celui qui contient le \textbf{modèle} de l'appl
 
 Ce dossier permet de gérer la création des formulaires en lien avec le modèle. Pour proposer des formulaires ergonomiques, j'ai utilisé un bundle, \textbf{MopaBootstrapBundle}, qui permettait d'inclure \textbf{Bootstrap} dans l'application, notemment dans la création des champs des formulaires.
 
-\nb{Image du formulaire}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height=100mm]{formulaire_event.png}
+\end{center}
+\caption{Formulaire de création d'un événement}
+\end{figure}
 
 \subsubsection*{Resources}
 
 Ce dossier est en lien avec le dossier \textit{app/Resource/}. En effet, il possède aussi des fichiers de configuration, de routes, mais aussi les librairies js et css à inclure dans le dossier \textit{web/}. Pour les besoins de l'application, j'ai écrit un fichier Javascript simple pour afficher un calendrier avec une coloration sur les dates de l'événements.
 
-\nb{Image du calendrier}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height=70mm]{calendrier_js.png}
+\end{center}
+\caption{Calendrier généré avec javascript}
+\end{figure}
 
 \subsubsection*{Service}
 
@@ -149,6 +159,7 @@ function indexAction(Request $request) {
 \end{lstlisting}
 \caption{Code simplifié avec exemple d'un Service}
 \end{figure}
+
 
 \newpage
 
@@ -235,8 +246,68 @@ Un des problèmes rencontré avec Elasticsearch était le fait que l'utilisation
 
 \subsection{Fondation d'une API REST}
 
-\nb{Ne pas oublier de citer: restsymfony}
+Créer une API \textbf{REST} n'est pas simple. En effet, il ne s'agit ni d'un standard, ni d'un protocol. C'est pourquoi je me suis longuement documenté sur les principes de REST, sur ses bonnes pratiques, mais aussi sur ses limites. \rf{restsymfony}\rf{hateoas}\rf{restandhateoas}
+
+Un des points à savoir, est la progression constante de la part d'API JSON face aux API XML, comme le montre la figure suivante:
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height=70mm]{xml-vs-json.png}
+\end{center}
+\caption{Graphique de recherche des termes XML API et JSON API}
+\end{figure}
+
+\textit{Source: \blurl{http://ur1.ca/ey5o6}{Google Trends}}
+
+Durant cette recherche, j'ai découvert la notion de HATEOAS \textit{(Hypermedia As The Engine Of Application State)}. C'est une amélioration de la philosophie lié à REST. Il s'agit de rendre l'API `` Explorable '', c'est à dire qu'il est possible de se déplacer dans l'API avec des `` liens '' pour découvrir les opérations disponibles.
+
+Sachant qu'une des composantes principales de ce projet est l'Open Data, l'API REST doit permettre de fournir toutes les données de l'application.
+
+J'ai documenté toutes les opérations possibles de l'API sur Github à l'adresse suivante: \url{https://github.com/LiberTIC/ODEV2/blob/master/doc/RestAPI.md}.
+
+J'ai essayé de retourner le plus souvent les bon codes de status HTTP. \textit{(Même si je n'ai pas réussi à mettre le 418 - I'm a teapot...)}
 
 \subsection{Tests unitaires}
 
+Comme pour toutes applications, il est important d'effectuer des tests pour s'assurer de la fiabilité de notre code. Symfony 2 intègre un composant de Tests, c'est donc facile d'écrire les tests unitaires pour l'application.
+
+\begin{figure}[h]
+\begin{lstlisting}[frame=single]
+<?php
+
+namespace AppBundle\Tests\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+class DefaultControllerTest extends WebTestCase
+{
+    public function testIndex()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/app/example');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertTrue(
+            $crawler->filter('html:contains("Homepage")')->count() > 0);
+    }
+}
+
+\end{lstlisting}
+\caption{Code simplifié de Test avec Symfony}
+\end{figure}
+
 \subsection{Tests de comportement}
+
+En plus des tests unitaires, j'ai effectué des tests de comportants grâce à Behat. Pour cela, j'ai d'abord écris des fichiers de `` Scénarios '' pour décrirer le comportement attendu de mon application.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height=120mm]{login_feature.png}
+\end{center}
+\caption{Scénarios de login sur l'application}
+\end{figure}
+
+\newpage
+
+L'avantage de Behat est de pouvoir écrire les scénarios en Français, pour pouvoir discuter des comportements attendu plus facilement avec les collaborateurs. En effet, il est possible de définir de nouvelles méthodes du Context pour créer de nouvelles phrases, adapté à notre application.
