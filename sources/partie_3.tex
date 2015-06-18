@@ -240,7 +240,54 @@ En ce qui concerne l'installation d'ElasticSearch sur la machine virtuelle, j'ai
 
 Pour faire le lien entre Symfony et le serveur ElasticSearch, j'ai créé la classe ESManager permettant de faire des requêtes de façon simple depuis les controlleurs. De plus, je l'ai ajouté au ServiceContainer de Symfony pour l'utiliser facilement.
 
-Un des problèmes rencontré avec Elasticsearch était le fait que l'utilisation que j'en ai fait: le stockage complet des données, posait des problèmes notamment pour l'indexation du jCal d'un événement.
+Un des problèmes rencontré avec ElasticSearch était le fait que l'utilisation que j'en ai fait: le stockage complet des données, posait des problèmes notamment pour l'indexation du jCal d'un événement.
+
+En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que quel que soit le \textbf{document} (\textit{structure JSON}) que nous allons \textbf{indexer}, ElasticSearch va produire un document de \textbf{Mapping} qui décrit le Schema du document que nous venons de lui donner sous la forme: `` Nom => Type ''. Il s'agit là d'une fonctionnalité très apprécié dans l'utilisation d'ElasticSearch dans la plupart des cas. Cependant, jCal suit une architecture différente de JSON comme le montre la figure suivante:
+
+\begin{figure}[h]
+\begin{lstlisting}[frame=single]
+
+// JSON Classique
+
+{
+    "glossary": {
+        "title": "example glossary",
+        "GlossDiv": {
+            "title": "S",
+            "GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+                    "SortAs": "SGML",
+                    "GlossTerm": "Standard Generalized Markup Language",
+                    "Acronym": "SGML",
+
+[...]
+
+// jCal
+
+["vevent",
+         [
+           ["dtstamp", {}, "date-time", "2006-02-06T00:11:21Z"],
+           ["dtstart",
+             { "tzid": "US/Eastern" },
+             "date-time",
+             "2006-01-02T12:00:00"
+           ],
+           ["duration", {}, "duration", "PT1H"],
+           ["rrule", {}, "recur", { "freq": "DAILY", "count": 5 } ],
+           ["rdate",
+             { "tzid": "US/Eastern" },
+             "period",
+             "2006-01-02T15:00:00/PT2H"
+           ],
+           ["summary", {}, "text", "Event #2"],
+           ["description",
+
+[...]
+
+\end{lstlisting}
+\caption{Exemples JSON et jCal}
+\end{figure}
 
 \subsection{Implémentation avec PostgreSQL}
 
