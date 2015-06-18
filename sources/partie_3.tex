@@ -1,18 +1,18 @@
 \section{Développement et Tests}
 
-Après la phase de Conception, viens la phase de développement, suivi de la phase de test.
+Après la phase de Conception, vient la phase de développement, suivie de la phase de test.
 
 \subsection{Symfony 2}
 
-Comme expliqué précédemment, pour ce projet, j'ai utilisé \textbf{Symfony 2}. Il s'agit d'un framework PHP suivant le pattern MVC proposant de nombreux composant pour accélérer et faciliter le développement d'une application PHP. De plus, Symfony possède une communauté très impliqué, ce qui permet de trouver de très nombreuses documentation très bien rédigé.
+Comme expliqué précédemment, pour ce projet, j'ai utilisé \textbf{Symfony 2}. Il s'agit d'un framework PHP suivant le pattern MVC proposant de nombreux composants pour accélérer et faciliter le développement d'une application PHP. De plus, Symfony possède une communauté très impliquée, ce qui permet de trouver de très nombreuses documentations très bien rédigées.
 
-Symfony est sponsorisé par SensioLabs, une entreprise française. Sponsorisé car, même si cette entreprise a développé la première version du framework, elle est maintenant entretenu par la communauté, en tant que projet Open-Source (\textit{MIT License}). Il est actuellement dans sa version 2.7.
+Symfony est sponsorisé par SensioLabs, une entreprise française. Sponsorisé car, même si cette entreprise a développé la première version du framework, elle est maintenant entretenue par la communauté, en tant que projet Open-Source (\textit{MIT License}). Il est actuellement dans sa version 2.7.
 
-Symfony offre la possibilité d'ajouter de nombreux `` Bundles '' indépendants permettant d'ajouter des fonctionnalités adaptés à nos besoin. De plus, Symfony utilise \textbf{Composer} qui est un `` Dependency Manager '' (ou gestionnaire de dépendance en français) qui permet d'ajouter un Bundle au projet en une seule commande: \textit{composer require "genemu/form-bundle"}
+Symfony offre la possibilité d'ajouter de nombreux `` Bundles '' indépendants permettant d'ajouter des fonctionnalités adaptées à nos besoins. De plus, Symfony utilise \textbf{Composer} qui est un `` Dependency Manager '' (ou gestionnaire de dépendance en français) qui permet d'ajouter un Bundle au projet en une seule commande: \textit{composer require "genemu/form-bundle"}
 
 Symfony propose de construire une application selon la structure suivante:
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{lstlisting}
     - app/
         - cache/
@@ -32,8 +32,7 @@ Symfony propose de construire une application selon la structure suivante:
 
             - [...]         // Plus de détails à suivre
 
-    - vendor/               /* Ici se trouve les bundles externes
-                               dont Symfony                       */
+    - vendor/               /* Ici se trouve les bundles externes */
 
     - web/                  /* Ici, nous trouvons tout les fichiers css,
                                js, les images, etc... Il s'agit du dossier
@@ -42,16 +41,14 @@ Symfony propose de construire une application selon la structure suivante:
     - composer.json         /* Ce fichier liste tous les bundles que 
                                nous utilisons                       */
 \end{lstlisting}
-\caption{Architecture proposé par le framework Symfony}
+\caption{Architecture proposée par le framework Symfony}
 \end{figure}
-
-\newpage
 
 \subsubsection*{Les composants Symfony}
 
 Un des composants que j'ai le plus utilisé dans Symfony est: `` HTTPFoundation ''. En effet, il gère de lui même les requêtes récupérer pour les offrir dans une classe \textbf{Request} et il est possible de créer une réponse très simplement en utilisant la classe \textbf{Response}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{lstlisting}[frame=single]
 <?php
 
@@ -74,13 +71,13 @@ function indexAction(Request $request) {
 \caption{Code simplifié avec exemple d'HTTPFoundation}
 \end{figure}
 
-Comme on peux le voir sur les quelques lignes de code précédentes, il est facile de saluer un utilisateur nous donnant son nom. Si nous voulions faire une page privé, nous pourions renvoyer un code \textbf{403 Forbidden} simplement en ajoutant 403 en argument du constructeur de Response.
+Comme on peut le voir sur les quelques lignes de code précédentes, il est facile de saluer un utilisateur nous donnant son nom. Si nous voulions faire une page privée, nous pourrions renvoyer un code \textbf{403 Forbidden} simplement en ajoutant 403 en argument du constructeur de Response.
 
 Durant le développement d'ODE, j'ai utilisé de nombreux autres composants de Symfony: \textit{Controller}, \textit{FormBuilder}, \textit{Routing}, etc...
 
 \vspace{1cm}
 
-Pour revenir sur l'architecture proposé par Symfony (Figure 1), nous pouvions trouver le dossier AppBundle qui est prévu pour y déposer la majorité de notre code.
+Pour revenir sur l'architecture proposée par Symfony (Figure 5), nous pouvions trouver le dossier AppBundle qui est prévu pour y déposer la majorité de notre code.
 
 \nb{Change number figure}
 
@@ -90,19 +87,19 @@ Il est conseillé de mettre son code selon l'architecture suivante:
 
 Dans le dossier \textbf{Backend/}, j'ai déposé les quelques classes permettant de stocker et de retrouver des données dans la base données: \textit{CalDAV/Auth.php}, \textit{CalDAV/Principals.php}, \textit{CalDAV/Calendar.php} et \textit{Users/UserManager.php}.
 
-Les trois premières classes étant lié à SabreDAV, je vous en parlerais dans la section suivante. La dernière, \textbf{UserManager}, est, quant à elle, lié à \textbf{FOSUSerBundle}; il s'agit d'un bundle permettant une gestion simplifié des utilisateurs. Il gère, entre autres, l'inscription, la connexion, le chiffrage des mots de passes, les sessions liés à l'utilisateurs, les rôles, etc...
+Les trois premières classes étant liées à SabreDAV, j'en parlerai dans la section suivante. La dernière, \textbf{UserManager}, est, quant à elle, liée à \textbf{FOSUSerBundle}; il s'agit d'un bundle permettant une gestion simplifiée des utilisateurs. Il gère, entre autres, l'inscription, la connexion, le chiffrage des mots de passes, les sessions liées à l'utilisateur, les rôles, etc...
 
 \subsubsection*{Controller}
 
-Dans ce dossier, j'ai déposé les classes de mes Controlleurs (\textit{sachant que Symfony respecte le design pattern MVC}).
+Dans ce dossier, j'ai déposé les classes de mes Contrôleurs (\textit{sachant que Symfony respecte le design pattern MVC}).
 
-La première classe, \textbf{DefaultController} est le controlleur le plus léger (2 fonctions): indexAction pour afficher la page d'accueil du site et testAction qui m'a servi d'écrire quelques lignes de php pour tester rapidement mon code.
+La première classe, \textbf{DefaultController} est le contrôleur le plus léger (2 fonctions): indexAction pour afficher la page d'accueil du site et testAction qui m'a servi à écrire quelques lignes de php pour tester rapidement mon code.
 
-La seconde classe, \textbf{CalDAVController} est le controlleur permettant de faire le lien avec SabreDAV (plus d'explication dans la section 3.2).
+La seconde classe, \textbf{CalDAVController} est le contrôleur permettant de faire le lien avec SabreDAV (plus d'explication dans la section 3.2).
 
-La troisième, \textbf{BrowserController} est le controlleur définissant le Front-End de l'application. C'est lui qui gère les pages et les formulaires proposé à l'utilisateur. Il est notemment en lien avec FOSUserBundle pour intégrer la connexion et l'inscription des utilisateurs.
+La troisième, \textbf{BrowserController} est le contrôleur définissant le Front-End de l'application. Il gère les pages et les formulaires proposés à l'utilisateur. Il est notamment en lien avec FOSUserBundle pour intégrer la connexion et l'inscription des utilisateurs.
 
-Enfin, \textbf{APIController} est le controlleur délivrant l'API. Il s'agit là de la partie de l'application délivrant la promesse de l'\textbf{Open Data}.
+Enfin, \textbf{APIController} est le contrôleur délivrant l'API. Il s'agit là de la partie de l'application délivrant la promesse de l'\textbf{Open Data}.
 
 \subsubsection*{Entity}
 
@@ -112,37 +109,33 @@ Le dossier \textbf{entity/} est celui qui contient le \textbf{modèle} de l'appl
 
 \subsubsection*{Form}
 
-Ce dossier permet de gérer la création des formulaires en lien avec le modèle. Pour proposer des formulaires ergonomiques, j'ai utilisé un bundle, \textbf{MopaBootstrapBundle}, qui permettait d'inclure \textbf{Bootstrap} dans l'application, notemment dans la création des champs des formulaires.
+Ce dossier permet de gérer la création des formulaires en lien avec le modèle. Pour proposer des formulaires ergonomiques, j'ai utilisé un bundle, \textbf{MopaBootstrapBundle}, qui permettait d'inclure \textbf{Bootstrap} dans l'application, notamment dans la création des champs des formulaires.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[height=100mm]{formulaire_event.png}
 \end{center}
 \caption{Formulaire de création d'un événement}
 \end{figure}
 
-\newpage
-
 \subsubsection*{Resources}
 
-Ce dossier est en lien avec le dossier \textit{app/Resource/}. En effet, il possède aussi des fichiers de configuration, de routes, mais aussi les librairies js et css à inclure dans le dossier \textit{web/}. Pour les besoins de l'application, j'ai écrit un fichier Javascript simple pour afficher un calendrier avec une coloration sur les dates de l'événements.
+Ce dossier est en lien avec le dossier \textit{app/Resource/}. En effet, il possède aussi des fichiers de configuration, de routes, mais aussi les librairies js et css à inclure dans le dossier \textit{web/}. Pour les besoins de l'application, j'ai écrit un fichier Javascript simple pour afficher un calendrier avec une coloration sur les dates de l'événement.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[height=55mm]{calendrier_js.png}
 \end{center}
 \caption{Calendrier généré avec javascript}
 \end{figure}
 
-\newpage
-
 \subsubsection*{Service}
 
-Un service (dans Symfony) est un composant, un module, qui remplit une fonction et qui peux être injecté dans le conteneur de dépendance pour être rendu accessible dans toute l'application. Cette fonction peut être très simple: envoyer des e-mails, vérifier qu'un texte n'est pas un spam, etc. Un service est donc un objet PHP qui a pour vocation d'être accessible depuis n'importe où dans le code. Pour chaque fonctionnalité dont je peux avoir besoin dans mon application, je peux créer un ou plusieurs services.
+Un service (dans Symfony) est un composant, un module, qui remplit une fonction et qui peut être injecté dans le conteneur de dépendance pour être rendu accessible dans toute l'application. Cette fonction peut être très simple: envoyer des e-mails, vérifier qu'un texte n'est pas un spam, etc. Un service est donc un objet PHP qui a pour vocation d'être accessible depuis n'importe où dans le code. Pour chaque fonctionnalité dont je peux avoir besoin dans mon application, je peux créer un ou plusieurs services.
 
-Symfony utilise un `` ServiceContainer '' qui enregistre tout les services. Il est ainsi possible d'accèder aux services depuis les controlleurs facilement:
+Symfony utilise un `` ServiceContainer '' qui enregistre tout les services. Il est ainsi possible d'accèder aux services depuis les contrôleurs facilement:
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{lstlisting}[frame=single]
 <?php
 
@@ -170,15 +163,15 @@ Le code précédent est une démonstration de l'appel au service \textbf{Slugify
 
 Après avoir décidé d'utiliser le protocol CalDAV pour le projet, j'ai cherché une librairie PHP permettant d'implémenter CalDAV dans Symfony. Malheureusement, il n'existe pas de Bundle tout prêt pour cette utilisation. Cependant, durant ma recherche, j'ai découvert \textbf{SabreDAV}. Il s'agit d'un serveur php capable de gérer les rêquetes ``PROPPATCH'', ``MKCALENDAR'', etc. propres à CalDAV.
 
-SabreDAV un projet Open Source développé par Fruux. Fruux est une entreprise éditrice qui fait parti du \textbf{Calendaring and Scheduling Consortium}, discutant sur le standard CalDAV, au côté d'Apple, Google, IBM et d'autres.
+SabreDAV est un projet Open Source développé par Fruux. Fruux est une entreprise éditrice qui fait parti du \textbf{Calendaring and Scheduling Consortium}, discutant sur le standard CalDAV, au côté d'Apple, Google, IBM et d'autres.
 
-SabreDAV possède sa propre architecture, il a donc fallu l'intégrer dans l'application. Pour cela, j'ai créé un Controlleur spécialement pour la partie CalDAV (CalDAVController.php). Au niveau des routes, j'ai les ai toutes redirigés vers la méthode `` indexAction '' qui controlleur. Ainsi, j'ai pu transmettre la requête directement au système de SabreDAV.
+SabreDAV possède sa propre architecture, il a donc fallu l'intégrer dans l'application. Pour cela, j'ai créé un Contrôleur spécialement pour la partie CalDAV (CalDAVController.php). Au niveau des routes, j'ai les ai toutes redirigés vers la méthode `` indexAction '' qui contrôleur. Ainsi, j'ai pu transmettre la requête directement au système de SabreDAV.
 
 Le problème que j'ai rencontré par la suite était le fait que SabreDAV gérait lui-même la constuction et l'envoi de la réponse, ce qui perturbais le fonction de Symfony.
 
 Grâce à de nombreuses recherches sur le sujet, j'ai découvert que Symfony proposait une classe, \textbf{StreamedResponse}, permettant de gérer ce cas de figure. En effet, StreamedResponse prend en argument une fonction de callback dans laquelle la réponse envoyé par SabreDAV sera attrapé par Symfony puis renvoyé vers l'utilisateur. Cela permet aussi de logger les messages renvoyé, ce qui m'a été très utile tout au long du développement de l'application.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{lstlisting}[frame=single]
 <?php
 
@@ -217,7 +210,7 @@ Les trois classes de Backend que j'ai implémenté sont les suivantes:
 
 \textbf{Principals.php}: Cette classe permet de gérer l'accès, la création et la suppression des `` Principals ''. Il s'agit d'un concept propre à CalDAV, que l'on pourrais résumer par un dossier pour gérer les différents calendriers.
 
-\textbf{Calendar.php}: C'est la classe la plus importante du Backend. En effet, elle rassemble toutes les fonctions pour créer, récupérer, modifier et supprimer un calendrier ou un événement. Elle s'occupe aussi des souscriptions et de lister les calendriers présents sur le serveur. J'utilise cette classe de nombreuses fois dans les controlleurs, car même si elle est utilisé par SabreDAV, elle s'adapte très facilement à n'importe quelle utilisation.
+\textbf{Calendar.php}: C'est la classe la plus importante du Backend. En effet, elle rassemble toutes les fonctions pour créer, récupérer, modifier et supprimer un calendrier ou un événement. Elle s'occupe aussi des souscriptions et de lister les calendriers présents sur le serveur. J'utilise cette classe de nombreuses fois dans les contrôleurs, car même si elle est utilisé par SabreDAV, elle s'adapte très facilement à n'importe quelle utilisation.
 
 \subsection{Implémentation avec ElasticSearch}
 
@@ -239,7 +232,7 @@ Et on se retrouve dans une machine virtuelle avec Ubuntu 14.04.
 
 En ce qui concerne l'installation d'ElasticSearch sur la machine virtuelle, j'ai produit la \blurl{https://github.com/LiberTIC/ODEV2/blob/77e78f9cc36d0bc5c22eadbf2e39ab2959f10c45/doc/Elasticsearch_install.md}{Documentation de l'installation} sur le Github pour que d'autres puissent le refaire facilement.
 
-Pour faire le lien entre Symfony et le serveur ElasticSearch, j'ai créé la classe ESManager permettant de faire des requêtes de façon simple depuis les controlleurs. De plus, je l'ai ajouté au ServiceContainer de Symfony pour l'utiliser facilement.
+Pour faire le lien entre Symfony et le serveur ElasticSearch, j'ai créé la classe ESManager permettant de faire des requêtes de façon simple depuis les contrôleurs. De plus, je l'ai ajouté au ServiceContainer de Symfony pour l'utiliser facilement.
 
 Un des problèmes rencontré avec ElasticSearch est le fait qu'ElasticSearch est fait pour l'indexation de données, mais il ne donne pas suffisamment de garanti en tant que moteur de persistence de données.
 
@@ -247,7 +240,7 @@ Un autre problème était le fait que l'utilisation que j'en ai fait: le stockag
 
 En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que quel que soit le \textbf{document} (\textit{structure JSON}) que nous allons \textbf{indexer}, ElasticSearch va produire un document de \textbf{Mapping} qui décrit le Schema du document que nous venons de lui donner sous la forme: `` Nom => Type ''. Il s'agit là d'une fonctionnalité très apprécié dans l'utilisation d'ElasticSearch dans la plupart des cas. Cependant, jCal suit une architecture différente de JSON comme le montre la figure suivante, et je devais donc modifier la façon dont je stocker le jCal pour l'adapter à ElasticSearch.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{lstlisting}[frame=single]
 
 // JSON Classique
@@ -269,10 +262,7 @@ En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que qu
 \end{lstlisting}
 \caption{Exemple JSON}
 \end{figure}
-
-\newpage
-
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{lstlisting}[frame=single]
 
 // jCal
@@ -301,9 +291,21 @@ En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que qu
 \caption{Exemple jCal}
 \end{figure}
 
+\newpage
+
 \subsection{Implémentation avec PostgreSQL}
 
-Finalement, apr
+Finalement, durant une réunion hebdomadaire, je me suis rendu compte que le projet avait légèrement évolué en ce qui concerne son utilisation. En effet, la façon dont j'avais conçu ODE était la suivante: Une instance unique du projet avec un grand nombre de données. Or, petit à petit, ODE s'adaptait plus au format: Un grand nombre de petites instances du projet.
+
+Je me suis donc reposé la question du stockage des données, et je me suis rendu compte qu'ElasticSearch, bien qu'adapté pour l'instance unique, n'étais pas du tout adapté pour la façon dont nous envisagions ODE à ce moment. Ainsi, j'ai décidé, avec l'accord de mon maître de stage, de remplacer l'utilisation d'ElasticSearch pour le remplacer par une base de données PostgreSQL.
+
+À partir de là, j'ai ré-implémenté les classes d'implémentation du BackEnd SabreDAV pour les adapter à PostgreSQL.
+
+Pour communiquer entre l'application et PostgreSQL, j'ai utilisé \textbf{Pomm}. Il s'agit d'un framework open source d'accès à la base de données lié avec un Object Model Manager dédié à PostgreSQL. Il offre une approche alternative à ORM pour l'utilisation des bases de données dans le développement web. Pomm est développé par Grégoire Hubert sous licence Creative Commons BY-SA.
+
+À l'instar de la création d'un service ESManager pour utiliser facilement ElasticSearch, j'ai créé le service PommManager possédant des fonctions tels que: createOne, deleteOne, findOne, findById, etc.
+
+Le problème principal de mon utilisation de PostgreSQL fut le manque du module PostgreSQL de PHP natif sur OSX. Cependant, je n'ai pas rencontré d'autres problèmes particuliers.
 
 \subsection{Fondation d'une API REST}
 
@@ -311,18 +313,25 @@ Créer une API \textbf{REST} n'est pas simple. En effet, il ne s'agit ni d'un st
 
 Un des points à savoir, est la progression constante de la part d'API JSON face aux API XML, comme le montre la figure suivante:
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[height=70mm]{xml-vs-json.png}
 \end{center}
 \caption{Graphique de recherche des termes XML API et JSON API}
 \end{figure}
 
-\newpage
-
 \textit{Source: \blurl{http://ur1.ca/ey5o6}{Google Trends}}
 
-Durant cette recherche, j'ai découvert la notion de HATEOAS \textit{(Hypermedia As The Engine Of Application State)}. C'est une amélioration de la philosophie lié à REST. Il s'agit de rendre l'API `` Explorable '', c'est à dire qu'il est possible de se déplacer dans l'API avec des `` liens '' pour découvrir les opérations disponibles.
+Durant cette recherche, j'ai découvert la notion de HATEOAS \textit{(Hypermedia As The Engine Of Application State)}. Il s'agit d'un concept d'architecture de l'application pour rendre l'API `` Explorable '', c'est à dire qu'il est possible de se déplacer dans l'API avec des `` liens '' pour découvrir les opérations disponibles.
+
+HATEOAS est décrit dans le Modèle de Maturité de Richardson \rf{richardson} comme étant le troisième niveau de maturité d'une application REST, les deux premiers étant les Ressources et les Verbes HTTP. Il apporte une dimension semantique aux API.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=70mm]{richardson_maturity_model.png}
+\end{center}
+\caption{Graphique de recherche des termes XML API et JSON API}
+\end{figure}
 
 Sachant qu'une des composantes principales de ce projet est l'Open Data, l'API REST doit permettre de fournir toutes les données de l'application.
 
@@ -334,7 +343,7 @@ J'ai essayé de retourner le plus souvent les bon codes de status HTTP. \textit{
 
 Comme pour toutes applications, il est important d'effectuer des tests pour s'assurer de la fiabilité de notre code. Symfony 2 intègre un composant de Tests, c'est donc facile d'écrire les tests unitaires pour l'application.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{lstlisting}[frame=single]
 <?php
 
@@ -360,13 +369,13 @@ class DefaultControllerTest extends WebTestCase
 \caption{Code simplifié de Test avec Symfony}
 \end{figure}
 
-\newpage
+Cependant, à cause de la courte durée de mon stage, je n'ai pas pu écrire la plupart des tests unitaires de l'applications.
 
 \subsection{Tests de comportement}
 
-En plus des tests unitaires, j'ai effectué des tests de comportants grâce à Behat. Pour cela, j'ai d'abord écris des fichiers de `` Scénarios '' pour décrirer le comportement attendu de mon application.
+À l'instar des tests unitaires, je n'ai pas pu effectuer des tests de comportement. Cependant, je les ai préparé grâce à Behat. Pour cela, j'ai écris des fichiers de `` Scénarios '' pour décrire le comportement attendu de mon application.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[height=140mm]{login_feature.png}
 \end{center}
