@@ -121,16 +121,20 @@ Ce dossier permet de gérer la création des formulaires en lien avec le modèle
 \caption{Formulaire de création d'un événement}
 \end{figure}
 
+\newpage
+
 \subsubsection*{Resources}
 
 Ce dossier est en lien avec le dossier \textit{app/Resource/}. En effet, il possède aussi des fichiers de configuration, de routes, mais aussi les librairies js et css à inclure dans le dossier \textit{web/}. Pour les besoins de l'application, j'ai écrit un fichier Javascript simple pour afficher un calendrier avec une coloration sur les dates de l'événements.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[height=70mm]{calendrier_js.png}
+\includegraphics[height=55mm]{calendrier_js.png}
 \end{center}
 \caption{Calendrier généré avec javascript}
 \end{figure}
+
+\newpage
 
 \subsubsection*{Service}
 
@@ -160,9 +164,6 @@ function indexAction(Request $request) {
 \caption{Code simplifié avec exemple d'un Service}
 \end{figure}
 
-
-\newpage
-
 Le code précédent est une démonstration de l'appel au service \textbf{Slugify}, permettant de générer des slug `` URL Friendly ''.
 
 \subsection{Intégration de SabreDAV}
@@ -176,8 +177,6 @@ SabreDAV possède sa propre architecture, il a donc fallu l'intégrer dans l'app
 Le problème que j'ai rencontré par la suite était le fait que SabreDAV gérait lui-même la constuction et l'envoi de la réponse, ce qui perturbais le fonction de Symfony.
 
 Grâce à de nombreuses recherches sur le sujet, j'ai découvert que symfony proposait une classe, \textbf{StreamedResponse}, permettant de gérer ce cas de figure. En effet, StreamedResponse prend en argument une fonction de callback dans laquelle la réponse envoyé par SabreDAV sera attrapé par Symfony puis renvoyé vers l'utilisateur. Cela permet aussi de logger les messages renvoyé, ce qui m'a été très utile tout au long du développement de l'application.
-
-\newpage
 
 \begin{figure}[h]
 \begin{lstlisting}[frame=single]
@@ -263,6 +262,15 @@ En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que qu
 
 [...]
 
+\end{lstlisting}
+\caption{Exemple JSON}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+\begin{lstlisting}[frame=single]
+
 // jCal
 
 ["vevent",
@@ -286,10 +294,23 @@ En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que qu
 [...]
 
 \end{lstlisting}
-\caption{Exemples JSON et jCal}
+\caption{Exemple jCal}
 \end{figure}
 
 \subsection{Implémentation avec PostgreSQL}
+
+azfezf
+
+efz
+
+zef
+
+zef
+
+
+fze
+
+fze
 
 \subsection{Fondation d'une API REST}
 
@@ -303,6 +324,8 @@ Un des points à savoir, est la progression constante de la part d'API JSON face
 \end{center}
 \caption{Graphique de recherche des termes XML API et JSON API}
 \end{figure}
+
+\newpage
 
 \textit{Source: \blurl{http://ur1.ca/ey5o6}{Google Trends}}
 
@@ -344,17 +367,17 @@ class DefaultControllerTest extends WebTestCase
 \caption{Code simplifié de Test avec Symfony}
 \end{figure}
 
+\newpage
+
 \subsection{Tests de comportement}
 
 En plus des tests unitaires, j'ai effectué des tests de comportants grâce à Behat. Pour cela, j'ai d'abord écris des fichiers de `` Scénarios '' pour décrirer le comportement attendu de mon application.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[height=120mm]{login_feature.png}
+\includegraphics[height=140mm]{login_feature.png}
 \end{center}
 \caption{Scénarios de login sur l'application}
 \end{figure}
-
-\newpage
 
 L'avantage de Behat est de pouvoir écrire les scénarios en Français, pour pouvoir discuter des comportements attendu plus facilement avec les collaborateurs. En effet, il est possible de définir de nouvelles méthodes du Context pour créer de nouvelles phrases, adapté à notre application.
