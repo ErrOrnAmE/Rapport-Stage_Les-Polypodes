@@ -1,6 +1,6 @@
 \section{Analyse et Conception}
 
-Comme tout projets de développement, il faut commencer par une phase d'analyse et de conception. Le projet Open Data Event a comme particularité d'avoir déjà eu plusieurs versions avant que je ne commence à travailler dessus. C'est pourquoi la partie d'analyse des versions précédentes était très importante, comme vous pourrez le lire par la suite.
+Comme tout projet de développement, il faut commencer par une phase d'analyse et de conception. Le projet Open Data Event a comme particularité d'avoir déjà eu plusieurs versions avant que je ne commence à travailler dessus. C'est pourquoi la partie d'analyse des versions précédentes était très importante, comme vous pourrez le lire par la suite.
 
 \subsection{Mise en place de mon environnement de travail}
 
@@ -25,7 +25,7 @@ En plus de mon environnement local, j'ai pu accéder à un serveur de pré-produ
 
 \subsection{Mise à niveau préliminaire}
 
-Dès le début de mon stage, il a été défini que le projet allait se construire sur des technologies que je ne connaissais pas et/ou ne maitrisais pas. C'est pourquoi il a été convenu que la première semaine de mon stage serait consacrée à une mise à niveau pour différentes technologies.
+Dès le début de mon stage, il a été défini que le projet allait se construire sur des technologies que je ne connaissais pas et/ou ne maîtrisais pas. C'est pourquoi il a été convenu que la première semaine de mon stage serait consacrée à une mise à niveau pour différentes technologies.
 
 Premièrement, j'ai suivi un récapitulatif des commandes \textbf{Git} \rf{gitimmersion} puis lu un article sur les bonnes pratiques de l'utilisation de Git et de ses branches \rf{successfulgit}.
 
@@ -38,13 +38,13 @@ Enfin, j'ai lu et appliqué la totalité du \textbf{Symfony Book} \rf{symfonyboo
 \subsubsection*{Service en ligne}
 
 Une volonté de la part de LiberTIC était de faire d'ODE un service disponible en ligne. 
-Sachant que j'ai effectué mon stage en partenariat chez Les Polypodes et que Symfony 2 est la Stack la mieux maitrisée par l'équipe, c'était le choix le plus logique pour pouvoir être accompagné par toute l'équipe en cas de besoins.
+Sachant que j'ai effectué mon stage en partenariat chez Les Polypodes et que Symfony 2 est la Stack la mieux maîtrisée par l'équipe, c'était le choix le plus logique pour pouvoir être accompagné par toute l'équipe en cas de besoin.
 
 Symfony 2 est un framework PHP proposant un grand nombre de composants facilitant et accélérant le travail du développeur PHP.
 
 \subsubsection*{CMS adapté}
 
-Un des besoins les plus important de la version 2 était de pouvoir proposer un Content Manager System accessible, dont même une personne ne connaissant rien à l'informatique pourrait ajouter du contenu.
+Un des besoins les plus importants de la version 2 était de pouvoir proposer un Content Manager System accessible, dont même une personne ne connaissant rien à l'informatique pourrait ajouter du contenu.
 
 \subsubsection*{API REST}
 
@@ -64,11 +64,15 @@ Suite à la conception, j'ai fait un diagramme de cas d'utilisation de l'applica
 
 \subsubsection*{CalDAV et WebDAV}
 
-Dès la première réunion, il était clair qu'il fallait se baser sur un protocole déjà en place, pour ne pas `` réinventer la roue ''. Le seul protocole actuellement en place répondant à nos besoin est \textbf{CalDAV}. Il s'agit d'une extension du protocole WebDAV, lui même une extension du protocole HTTP (plus d'informations en Annexe 1). 
+Dès la première réunion, il était clair qu'il fallait se baser sur un protocole déjà en place, pour ne pas `` réinventer la roue ''. Le seul protocole actuellement en place répondant à nos besoins est \textbf{CalDAV}. Il s'agit d'une extension du protocole WebDAV, lui même une extension du protocole HTTP (plus d'informations en Annexe 1). 
 
 CalDAV définit la gestion des calendriers au sein d'un serveur. Il décrit aussi la façon dont les serveurs CalDAV doivent gérer les événements et les utilisateurs.
 
 CalDAV est défini par la RFC 4791\rf{RFC4791} datant de 2007. Il existe plusieurs implémentations de cette RFC. La première, historiquement parlant, est CalendarServer, en python.
+
+\subsubsection*{Ontologie}
+
+Pour s'adapter au mieux au ``Web sémantique'', nous avons décidé qu'il était important de se documenter sur les ontologies déjà effectué sur l'événementiel. Nous avons donc étudié la proposition de Schema.org (\url{https://schema.org/Event}). Le resultat de cette recherche est disponible sous forme de tableau dans l'annexe 2.
 
 \subsubsection*{oEmbed}
 

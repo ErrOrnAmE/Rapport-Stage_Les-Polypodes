@@ -101,9 +101,7 @@ Enfin, \textbf{APIController} est le contrôleur délivrant l'API. Il s'agit là
 
 \subsubsection*{Entity}
 
-Le dossier \textbf{entity/} est celui qui contient le \textbf{modèle} de l'application.
-
-En ce qui concerne le modèle d'un événement, nous nous sommes beaucoup concerté pour pouvoir s'assurer de sa qualité. Nous avons cherché de nombreuses ontologies lié à l'événementiel. Nous avons étudiés la proposition de Schema.org (https://schema.org/Event). Le resultat de cette recherche est disponible sous forme de tableau dans l'annexe 2.
+Le dossier \textbf{entity/} est celui qui contient le \textbf{modèle} d'un événement et d'un calendrier.
 
 \subsubsection*{Form}
 
@@ -159,7 +157,7 @@ Le code précédent est une démonstration de l'appel au service \textbf{Slugify
 
 \subsection{Intégration de SabreDAV}
 
-Après avoir décidé d'utiliser le protocol CalDAV pour le projet, j'ai cherché une librairie PHP permettant d'implémenter CalDAV dans Symfony. Malheureusement, il n'existe pas de Bundle tout prêt pour cette utilisation. Cependant, durant ma recherche, j'ai découvert \textbf{SabreDAV}. Il s'agit d'un serveur php capable de gérer les rêquetes ``PROPPATCH'', ``MKCALENDAR'', etc. propres à CalDAV.
+Après avoir décidé d'utiliser le protocole CalDAV pour le projet, j'ai cherché une librairie PHP permettant d'implémenter CalDAV dans Symfony. Malheureusement, il n'existe pas de Bundle tout prêt pour cette utilisation. Cependant, durant ma recherche, j'ai découvert \textbf{SabreDAV}. Il s'agit d'un serveur php capable de gérer les rêquetes ``PROPPATCH'', ``MKCALENDAR'', etc. propres à CalDAV.
 
 SabreDAV est un projet Open Source développé par Fruux. Fruux est une entreprise éditrice qui fait partie du \textbf{Calendaring and Scheduling Consortium}, discutant sur le standard CalDAV, au côté d'Apple, Google, IBM et d'autres.
 
@@ -232,7 +230,7 @@ En ce qui concerne l'installation d'ElasticSearch sur la machine virtuelle, j'ai
 
 Pour faire le lien entre Symfony et le serveur ElasticSearch, j'ai créé la classe ESManager permettant de faire des requêtes de façon simple depuis les contrôleurs. De plus, je l'ai ajouté au ServiceContainer de Symfony pour l'utiliser facilement.
 
-Un des problèmes rencontrés avec ElasticSearch est le fait qu'ElasticSearch est fait pour l'indexation de données, mais il ne donne pas suffisamment de garantie en tant que moteur de persistence de données.
+ElasticSearch est fait pour l'indexation de données, mais il ne donne pas suffisamment de garantie en tant que moteur de persistance de données, ce qui peut poser de nombreux problèmes.
 
 Un autre problème venait l'utilisation que j'en ai fait: le stockage complet des données, posait des problèmes notamment pour l'indexation du jCal d'un événement.
 
@@ -293,9 +291,9 @@ En effet, ElasticSearch se décrit comme ``SchemaLess''. Cela veut dire que quel
 
 \subsection{Implémentation avec PostgreSQL}
 
-Finalement, durant une réunion hebdomadaire, je me suis rendu compte que le projet avait légèrement évolué en ce qui concerne son utilisation. En effet, la façon dont j'avais conçu ODE était la suivante: Une instance unique du projet avec un grand nombre de données. Or, petit à petit, ODE s'adaptait mieux au format: Un grand nombre de petites instances du projet.
+Finalement, durant une réunion hebdomadaire, je me suis rendu compte que le projet avait légèrement évolué en ce qui concerne son utilisation. En effet, la façon dont j'avais conçu ODE était la suivante: ``une instance unique du projet avec un grand nombre de données''. Or, petit à petit, ODE s'adaptait mieux au format: ``un grand nombre de petites instances du projet''.
 
-J'ai donc ré-évalué la question du stockage des données, et je me suis rendu compte qu'ElasticSearch, bien qu'adapté pour l'instance unique, n'étais pas du tout adapté pour la façon dont nous envisagions ODE à ce moment. Ainsi, j'ai décidé, avec l'accord de mon maître de stage, de remplacer l'utilisation d'ElasticSearch pour le remplacer par une base de données PostgreSQL.
+J'ai donc ré-évalué la question du stockage des données, et je me suis rendu compte qu'ElasticSearch, bien qu'adapté pour l'instance unique, n'était pas du tout adapté pour la façon dont nous envisagions ODE à ce moment. Ainsi, j'ai décidé, avec l'accord de mon maître de stage, de remplacer l'utilisation d'ElasticSearch pour le remplacer par une base de données PostgreSQL.
 
 À partir de là, j'ai ré-implémenté les classes d'implémentation du BackEnd SabreDAV pour les adapter à PostgreSQL.
 
@@ -335,7 +333,7 @@ Sachant qu'une des composantes principales de ce projet est l'Open Data, l'API R
 
 J'ai documenté toutes les opérations possibles de l'API sur Github à l'adresse suivante: \url{https://github.com/LiberTIC/ODEV2/blob/master/doc/RestAPI.md}.
 
-J'ai essayé de retourner le plus souvent les bons codes de status HTTP. \textit{(Même si je n'ai pas réussi à mettre le 418 - I'm a teapot...)}
+J'ai essayé de retourner le plus souvent les bons codes de status HTTP.
 
 \subsection{Tests unitaires}
 
@@ -379,5 +377,7 @@ Cependant, à cause de la courte durée de mon stage, je n'ai pas pu écrire la 
 \end{center}
 \caption{Scénarios de login sur l'application}
 \end{figure}
+
+L'écriture des scénarios utilise le language Gerkhin, créé spécialement pour les tests de comportements.
 
 L'avantage de Behat est de pouvoir écrire les scénarios en Français, pour pouvoir discuter des comportements attendu plus facilement avec les collaborateurs. En effet, il est possible de définir de nouvelles méthodes du Context pour créer de nouvelles phrases, adaptées à notre application.
