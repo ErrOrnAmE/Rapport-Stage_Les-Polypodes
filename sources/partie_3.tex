@@ -138,7 +138,7 @@ Ce dossier est en lien avec le dossier \textit{app/Resource/}. En effet, il poss
 
 \subsubsection*{Service}
 
-Un service (dans Symfony) est un simple objet PHP qui remplit une fonction. Cette fonction peut être très simple: envoyer des e-mails, vérifier qu'un texte n'est pas un spam, etc. Un service est donc un objet PHP qui a pour vocation d'être accessible depuis n'importe où dans le code. Pour chaque fonctionnalité dont je peux avoir besoin dans mon application, je peux créer un ou plusieurs services.
+Un service (dans Symfony) est un composant, un module, qui remplit une fonction et qui peux être injecté dans le conteneur de dépendance pour être rendu accessible dans toute l'application. Cette fonction peut être très simple: envoyer des e-mails, vérifier qu'un texte n'est pas un spam, etc. Un service est donc un objet PHP qui a pour vocation d'être accessible depuis n'importe où dans le code. Pour chaque fonctionnalité dont je peux avoir besoin dans mon application, je peux créer un ou plusieurs services.
 
 Symfony utilise un `` ServiceContainer '' qui enregistre tout les services. Il est ainsi possible d'accèder aux services depuis les controlleurs facilement:
 
@@ -170,13 +170,13 @@ Le code précédent est une démonstration de l'appel au service \textbf{Slugify
 
 Après avoir décidé d'utiliser le protocol CalDAV pour le projet, j'ai cherché une librairie PHP permettant d'implémenter CalDAV dans Symfony. Malheureusement, il n'existe pas de Bundle tout prêt pour cette utilisation. Cependant, durant ma recherche, j'ai découvert \textbf{SabreDAV}. Il s'agit d'un serveur php capable de gérer les rêquetes ``PROPPATCH'', ``MKCALENDAR'', etc. propres à CalDAV.
 
-SabreDAV un projet Open Source développé par Fruux. Fruux fait parti du \textbf{Calendaring and Scheduling Consortium}, discutant sur le standard CalDAV, au côté d'Apple, Google, IBM et d'autres.
+SabreDAV un projet Open Source développé par Fruux. Fruux est une entreprise éditrice qui fait parti du \textbf{Calendaring and Scheduling Consortium}, discutant sur le standard CalDAV, au côté d'Apple, Google, IBM et d'autres.
 
 SabreDAV possède sa propre architecture, il a donc fallu l'intégrer dans l'application. Pour cela, j'ai créé un Controlleur spécialement pour la partie CalDAV (CalDAVController.php). Au niveau des routes, j'ai les ai toutes redirigés vers la méthode `` indexAction '' qui controlleur. Ainsi, j'ai pu transmettre la requête directement au système de SabreDAV.
 
 Le problème que j'ai rencontré par la suite était le fait que SabreDAV gérait lui-même la constuction et l'envoi de la réponse, ce qui perturbais le fonction de Symfony.
 
-Grâce à de nombreuses recherches sur le sujet, j'ai découvert que symfony proposait une classe, \textbf{StreamedResponse}, permettant de gérer ce cas de figure. En effet, StreamedResponse prend en argument une fonction de callback dans laquelle la réponse envoyé par SabreDAV sera attrapé par Symfony puis renvoyé vers l'utilisateur. Cela permet aussi de logger les messages renvoyé, ce qui m'a été très utile tout au long du développement de l'application.
+Grâce à de nombreuses recherches sur le sujet, j'ai découvert que Symfony proposait une classe, \textbf{StreamedResponse}, permettant de gérer ce cas de figure. En effet, StreamedResponse prend en argument une fonction de callback dans laquelle la réponse envoyé par SabreDAV sera attrapé par Symfony puis renvoyé vers l'utilisateur. Cela permet aussi de logger les messages renvoyé, ce qui m'a été très utile tout au long du développement de l'application.
 
 \begin{figure}[h]
 \begin{lstlisting}[frame=single]
@@ -213,17 +213,19 @@ Niveau Backend, SabreDAV a été conçu pour laisser le choix aux utilisateurs. 
 
 Les trois classes de Backend que j'ai implémenté sont les suivantes:
 
-\textbf{Auth.php}: Celle ci sert à récupérer le mot de passe chiffré en fonction du nom d'utilisateur.
+\textbf{Auth.php}: Celle ci permet d'authentifier l'utilisateur se connectant depuis un client compatible CalDAV.
 
 \textbf{Principals.php}: Cette classe permet de gérer l'accès, la création et la suppression des `` Principals ''. Il s'agit d'un concept propre à CalDAV, que l'on pourrais résumer par un dossier pour gérer les différents calendriers.
 
-\textbf{Calendar.php}: C'est la classe la plus importante du Backend. En effet, elle rassemble toutes les fonctions pour créer, récupérer, modifier et supprimer un calendrier ou un événement. Elle s'occupe aussi des souscriptions et de lister les calendriers présents sur le serveur. J'utilise cette classe de nombreuses fois dans mes controlleurs, car même si elle est utilisé par SabreDAV, elle s'adapte très facilement à n'importe quelle utilisation.
+\textbf{Calendar.php}: C'est la classe la plus importante du Backend. En effet, elle rassemble toutes les fonctions pour créer, récupérer, modifier et supprimer un calendrier ou un événement. Elle s'occupe aussi des souscriptions et de lister les calendriers présents sur le serveur. J'utilise cette classe de nombreuses fois dans les controlleurs, car même si elle est utilisé par SabreDAV, elle s'adapte très facilement à n'importe quelle utilisation.
 
 \subsection{Implémentation avec ElasticSearch}
 
 \textbf{ElasticSearch} est un moteur de d'indexation et de recherche. Les principaux atouts d'ElasticSearch sont sa capacité à stocker les données sous le format JSON, ainsi que sa capacité à offrir de nombreux graphiques et statistiques sur l'utilisation du service.
 
 ElasticSearch se base sur Apache Lucene, il est donc propulsé par Java. L'installation d'ElasticSeach requiert de plus la version 1.8 de la Java Virtual Machine. ElasticSearch n'étant pas adapté à OSX, j'ai du installer une machine virtuelle sur mon Mac. Pour cela, j'ai utilisé \textbf{Vagrant}.
+
+\textbf{Vagrant} est un outil permettant de gérer des machines virtuelles simplement. Il utilise lui même le logiciel très connu: \textbf{VirtualBox}. Pour configurer la machine virtuelle, il suffit de modifier un fichier de configuration simple.
 
 Après avoir installé Vagrant, il suffit d'éxécuter les commandes suivantes:
 
@@ -239,9 +241,11 @@ En ce qui concerne l'installation d'ElasticSearch sur la machine virtuelle, j'ai
 
 Pour faire le lien entre Symfony et le serveur ElasticSearch, j'ai créé la classe ESManager permettant de faire des requêtes de façon simple depuis les controlleurs. De plus, je l'ai ajouté au ServiceContainer de Symfony pour l'utiliser facilement.
 
-Un des problèmes rencontré avec ElasticSearch était le fait que l'utilisation que j'en ai fait: le stockage complet des données, posait des problèmes notamment pour l'indexation du jCal d'un événement.
+Un des problèmes rencontré avec ElasticSearch est le fait qu'ElasticSearch est fait pour l'indexation de données, mais il ne donne pas suffisamment de garanti en tant que moteur de persistence de données.
 
-En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que quel que soit le \textbf{document} (\textit{structure JSON}) que nous allons \textbf{indexer}, ElasticSearch va produire un document de \textbf{Mapping} qui décrit le Schema du document que nous venons de lui donner sous la forme: `` Nom => Type ''. Il s'agit là d'une fonctionnalité très apprécié dans l'utilisation d'ElasticSearch dans la plupart des cas. Cependant, jCal suit une architecture différente de JSON comme le montre la figure suivante:
+Un autre problème était le fait que l'utilisation que j'en ai fait: le stockage complet des données, posait des problèmes notamment pour l'indexation du jCal d'un événement.
+
+En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que quel que soit le \textbf{document} (\textit{structure JSON}) que nous allons \textbf{indexer}, ElasticSearch va produire un document de \textbf{Mapping} qui décrit le Schema du document que nous venons de lui donner sous la forme: `` Nom => Type ''. Il s'agit là d'une fonctionnalité très apprécié dans l'utilisation d'ElasticSearch dans la plupart des cas. Cependant, jCal suit une architecture différente de JSON comme le montre la figure suivante, et je devais donc modifier la façon dont je stocker le jCal pour l'adapter à ElasticSearch.
 
 \begin{figure}[h]
 \begin{lstlisting}[frame=single]
@@ -299,18 +303,7 @@ En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que qu
 
 \subsection{Implémentation avec PostgreSQL}
 
-azfezf
-
-efz
-
-zef
-
-zef
-
-
-fze
-
-fze
+Finalement, apr
 
 \subsection{Fondation d'une API REST}
 
