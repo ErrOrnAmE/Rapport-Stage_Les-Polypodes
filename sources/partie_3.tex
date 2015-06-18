@@ -74,7 +74,7 @@ function indexAction(Request $request) {
 \caption{Code simplifié avec exemple d'HTTPFoundation}
 \end{figure}
 
-Comme on peux le voir sur les quelques lignes de code précédentes, il est facile de saluer un utilisateur nous donnant son nom. Si nous voulions faire une page privé, nous pourions renvoyer un code \textbf{403 Forbidden} simplement en ajoutant 403 en argument du constructeur de Response. Simple!
+Comme on peux le voir sur les quelques lignes de code précédentes, il est facile de saluer un utilisateur nous donnant son nom. Si nous voulions faire une page privé, nous pourions renvoyer un code \textbf{403 Forbidden} simplement en ajoutant 403 en argument du constructeur de Response.
 
 Durant le développement d'ODE, j'ai utilisé de nombreux autres composants de Symfony: \textit{Controller}, \textit{FormBuilder}, \textit{Routing}, etc...
 
@@ -96,7 +96,7 @@ Les trois premières classes étant lié à SabreDAV, je vous en parlerais dans 
 
 Dans ce dossier, j'ai déposé les classes de mes Controlleurs (\textit{sachant que Symfony respecte le design pattern MVC}).
 
-La première classe, \textbf{DefaultController} est le controlleur le plus léger (2 fonctions): Index du site et page de test.
+La première classe, \textbf{DefaultController} est le controlleur le plus léger (2 fonctions): indexAction pour afficher la page d'accueil du site et testAction qui m'a servi d'écrire quelques lignes de php pour tester rapidement mon code.
 
 La seconde classe, \textbf{CalDAVController} est le controlleur permettant de faire le lien avec SabreDAV (plus d'explication dans la section 3.2).
 
