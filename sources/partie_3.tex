@@ -163,13 +163,13 @@ Le code précédent est une démonstration de l'appel au service \textbf{Slugify
 
 Après avoir décidé d'utiliser le protocol CalDAV pour le projet, j'ai cherché une librairie PHP permettant d'implémenter CalDAV dans Symfony. Malheureusement, il n'existe pas de Bundle tout prêt pour cette utilisation. Cependant, durant ma recherche, j'ai découvert \textbf{SabreDAV}. Il s'agit d'un serveur php capable de gérer les rêquetes ``PROPPATCH'', ``MKCALENDAR'', etc. propres à CalDAV.
 
-SabreDAV est un projet Open Source développé par Fruux. Fruux est une entreprise éditrice qui fait parti du \textbf{Calendaring and Scheduling Consortium}, discutant sur le standard CalDAV, au côté d'Apple, Google, IBM et d'autres.
+SabreDAV est un projet Open Source développé par Fruux. Fruux est une entreprise éditrice qui fait partie du \textbf{Calendaring and Scheduling Consortium}, discutant sur le standard CalDAV, au côté d'Apple, Google, IBM et d'autres.
 
-SabreDAV possède sa propre architecture, il a donc fallu l'intégrer dans l'application. Pour cela, j'ai créé un Contrôleur spécialement pour la partie CalDAV (CalDAVController.php). Au niveau des routes, j'ai les ai toutes redirigés vers la méthode `` indexAction '' qui contrôleur. Ainsi, j'ai pu transmettre la requête directement au système de SabreDAV.
+SabreDAV possède sa propre architecture, il a donc fallu l'intégrer dans l'application. Pour cela, j'ai créé un Contrôleur spécialement pour la partie CalDAV (CalDAVController.php). Au niveau des routes, j'ai les ai toutes redirigées vers la méthode `` indexAction '' du contrôleur. Ainsi, j'ai pu transmettre la requête directement au système de SabreDAV.
 
-Le problème que j'ai rencontré par la suite était le fait que SabreDAV gérait lui-même la constuction et l'envoi de la réponse, ce qui perturbais le fonction de Symfony.
+Le problème que j'ai rencontré par la suite était le fait que SabreDAV gérait lui-même la constuction et l'envoi de la réponse, ce qui perturbait le fonctionnement de Symfony.
 
-Grâce à de nombreuses recherches sur le sujet, j'ai découvert que Symfony proposait une classe, \textbf{StreamedResponse}, permettant de gérer ce cas de figure. En effet, StreamedResponse prend en argument une fonction de callback dans laquelle la réponse envoyé par SabreDAV sera attrapé par Symfony puis renvoyé vers l'utilisateur. Cela permet aussi de logger les messages renvoyé, ce qui m'a été très utile tout au long du développement de l'application.
+Grâce à de nombreuses recherches sur le sujet, j'ai découvert que Symfony proposait une classe, \textbf{StreamedResponse}, permettant de gérer ce cas de figure. En effet, StreamedResponse prend en argument une fonction de callback dans laquelle la réponse envoyée par SabreDAV sera attrapée par Symfony puis renvoyée vers l'utilisateur. Cela permet aussi de logger les messages renvoyés, ce qui m'a été très utile tout au long du développement de l'application.
 
 \begin{figure}[H]
 \begin{lstlisting}[frame=single]
@@ -204,19 +204,19 @@ Grâce à de nombreuses recherches sur le sujet, j'ai découvert que Symfony pro
 
 Niveau Backend, SabreDAV a été conçu pour laisser le choix aux utilisateurs. En effet, la librairie utilise des interfaces pour les classes de Backend, ainsi, j'ai pu implémenter moi même les classes, d'abord avec ElasticSearch, puis avec PostgreSQL.
 
-Les trois classes de Backend que j'ai implémenté sont les suivantes:
+Les trois classes de Backend que j'ai implémentées sont les suivantes:
 
-\textbf{Auth.php}: Celle ci permet d'authentifier l'utilisateur se connectant depuis un client compatible CalDAV.
+\textbf{Auth.php}: Celle-ci permet d'authentifier l'utilisateur se connectant depuis un client compatible CalDAV.
 
-\textbf{Principals.php}: Cette classe permet de gérer l'accès, la création et la suppression des `` Principals ''. Il s'agit d'un concept propre à CalDAV, que l'on pourrais résumer par un dossier pour gérer les différents calendriers.
+\textbf{Principals.php}: Cette classe permet de gérer l'accès, la création et la suppression des `` Principals ''. Il s'agit d'un concept propre à CalDAV, que l'on pourrait résumer par un dossier pour gérer les différents calendriers.
 
-\textbf{Calendar.php}: C'est la classe la plus importante du Backend. En effet, elle rassemble toutes les fonctions pour créer, récupérer, modifier et supprimer un calendrier ou un événement. Elle s'occupe aussi des souscriptions et de lister les calendriers présents sur le serveur. J'utilise cette classe de nombreuses fois dans les contrôleurs, car même si elle est utilisé par SabreDAV, elle s'adapte très facilement à n'importe quelle utilisation.
+\textbf{Calendar.php}: C'est la classe la plus importante du Backend. En effet, elle rassemble toutes les fonctions pour créer, récupérer, modifier et supprimer un calendrier ou un événement. Elle s'occupe aussi des souscriptions et de lister les calendriers présents sur le serveur. J'utilise cette classe de nombreuses fois dans les contrôleurs, car même si elle est utilisée par SabreDAV, elle s'adapte très facilement à n'importe quelle utilisation.
 
 \subsection{Implémentation avec ElasticSearch}
 
-\textbf{ElasticSearch} est un moteur de d'indexation et de recherche. Les principaux atouts d'ElasticSearch sont sa capacité à stocker les données sous le format JSON, ainsi que sa capacité à offrir de nombreux graphiques et statistiques sur l'utilisation du service.
+\textbf{ElasticSearch} est un moteur d'indexation et de recherche. Les principaux atouts d'ElasticSearch sont sa capacité à stocker les données sous le format JSON, ainsi que sa capacité à offrir de nombreux graphiques et statistiques sur l'utilisation du service.
 
-ElasticSearch se base sur Apache Lucene, il est donc propulsé par Java. L'installation d'ElasticSeach requiert de plus la version 1.8 de la Java Virtual Machine. ElasticSearch n'étant pas adapté à OSX, j'ai du installer une machine virtuelle sur mon Mac. Pour cela, j'ai utilisé \textbf{Vagrant}.
+ElasticSearch se base sur Apache Lucene, il est donc propulsé par Java. L'installation d'ElasticSeach requiert de plus la version 1.8 de la Java Virtual Machine. ElasticSearch n'étant pas adapté à OSX, j'ai dû installer une machine virtuelle sur mon Mac. Pour cela, j'ai utilisé \textbf{Vagrant}.
 
 \textbf{Vagrant} est un outil permettant de gérer des machines virtuelles simplement. Il utilise lui même le logiciel très connu: \textbf{VirtualBox}. Pour configurer la machine virtuelle, il suffit de modifier un fichier de configuration simple.
 
@@ -234,11 +234,11 @@ En ce qui concerne l'installation d'ElasticSearch sur la machine virtuelle, j'ai
 
 Pour faire le lien entre Symfony et le serveur ElasticSearch, j'ai créé la classe ESManager permettant de faire des requêtes de façon simple depuis les contrôleurs. De plus, je l'ai ajouté au ServiceContainer de Symfony pour l'utiliser facilement.
 
-Un des problèmes rencontré avec ElasticSearch est le fait qu'ElasticSearch est fait pour l'indexation de données, mais il ne donne pas suffisamment de garanti en tant que moteur de persistence de données.
+Un des problèmes rencontrés avec ElasticSearch est le fait qu'ElasticSearch est fait pour l'indexation de données, mais il ne donne pas suffisamment de garantie en tant que moteur de persistence de données.
 
-Un autre problème était le fait que l'utilisation que j'en ai fait: le stockage complet des données, posait des problèmes notamment pour l'indexation du jCal d'un événement.
+Un autre problème venait l'utilisation que j'en ai fait: le stockage complet des données, posait des problèmes notamment pour l'indexation du jCal d'un événement.
 
-En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que quel que soit le \textbf{document} (\textit{structure JSON}) que nous allons \textbf{indexer}, ElasticSearch va produire un document de \textbf{Mapping} qui décrit le Schema du document que nous venons de lui donner sous la forme: `` Nom => Type ''. Il s'agit là d'une fonctionnalité très apprécié dans l'utilisation d'ElasticSearch dans la plupart des cas. Cependant, jCal suit une architecture différente de JSON comme le montre la figure suivante, et je devais donc modifier la façon dont je stocker le jCal pour l'adapter à ElasticSearch.
+En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veut dire que quel que soit le \textbf{document} (\textit{structure JSON}) que nous allons \textbf{indexer}, ElasticSearch va produire un document de \textbf{Mapping} qui décrit le Schema du document que nous venons de lui donner sous la forme: `` Nom => Type ''. Il s'agit là d'une fonctionnalité très appréciée dans l'utilisation d'ElasticSearch dans la plupart des cas. Cependant, jCal suit une architecture différente de JSON comme le montre la figure suivante, et je devais donc modifier la façon dont je stockais le jCal pour l'adapter à ElasticSearch.
 
 \begin{figure}[H]
 \begin{lstlisting}[frame=single]
@@ -295,21 +295,21 @@ En effet, ElasticSearch se décrit comme `` SchemaLess ''. Cela veux dire que qu
 
 \subsection{Implémentation avec PostgreSQL}
 
-Finalement, durant une réunion hebdomadaire, je me suis rendu compte que le projet avait légèrement évolué en ce qui concerne son utilisation. En effet, la façon dont j'avais conçu ODE était la suivante: Une instance unique du projet avec un grand nombre de données. Or, petit à petit, ODE s'adaptait plus au format: Un grand nombre de petites instances du projet.
+Finalement, durant une réunion hebdomadaire, je me suis rendu compte que le projet avait légèrement évolué en ce qui concerne son utilisation. En effet, la façon dont j'avais conçu ODE était la suivante: Une instance unique du projet avec un grand nombre de données. Or, petit à petit, ODE s'adaptait mieux au format: Un grand nombre de petites instances du projet.
 
-Je me suis donc reposé la question du stockage des données, et je me suis rendu compte qu'ElasticSearch, bien qu'adapté pour l'instance unique, n'étais pas du tout adapté pour la façon dont nous envisagions ODE à ce moment. Ainsi, j'ai décidé, avec l'accord de mon maître de stage, de remplacer l'utilisation d'ElasticSearch pour le remplacer par une base de données PostgreSQL.
+J'ai donc ré-évalué la question du stockage des données, et je me suis rendu compte qu'ElasticSearch, bien qu'adapté pour l'instance unique, n'étais pas du tout adapté pour la façon dont nous envisagions ODE à ce moment. Ainsi, j'ai décidé, avec l'accord de mon maître de stage, de remplacer l'utilisation d'ElasticSearch pour le remplacer par une base de données PostgreSQL.
 
 À partir de là, j'ai ré-implémenté les classes d'implémentation du BackEnd SabreDAV pour les adapter à PostgreSQL.
 
 Pour communiquer entre l'application et PostgreSQL, j'ai utilisé \textbf{Pomm}. Il s'agit d'un framework open source d'accès à la base de données lié avec un Object Model Manager dédié à PostgreSQL. Il offre une approche alternative à ORM pour l'utilisation des bases de données dans le développement web. Pomm est développé par Grégoire Hubert sous licence Creative Commons BY-SA.
 
-À l'instar de la création d'un service ESManager pour utiliser facilement ElasticSearch, j'ai créé le service PommManager possédant des fonctions tels que: createOne, deleteOne, findOne, findById, etc.
+À l'instar de la création d'un service ESManager pour utiliser facilement ElasticSearch, j'ai créé le service PommManager possédant des fonctions telles que: createOne, deleteOne, findOne, findById, etc.
 
-Le problème principal de mon utilisation de PostgreSQL fut le manque du module PostgreSQL de PHP natif sur OSX. Cependant, je n'ai pas rencontré d'autres problèmes particuliers.
+Le problème principal de mon utilisation de PostgreSQL fut le manque du module PostgreSQL de PHP natif sur OSX. Cependant, je n'ai pas rencontré d'autre problème particulier.
 
 \subsection{Fondation d'une API REST}
 
-Créer une API \textbf{REST} n'est pas simple. En effet, il ne s'agit ni d'un standard, ni d'un protocol. C'est pourquoi je me suis longuement documenté sur les principes de REST, sur ses bonnes pratiques, mais aussi sur ses limites. \rf{restsymfony}\rf{hateoas}\rf{restandhateoas}
+Créer une API \textbf{REST} n'est pas simple. En effet, il ne s'agit ni d'un standard, ni d'un protocole. C'est pourquoi je me suis longuement documenté sur les principes de REST, sur ses bonnes pratiques, mais aussi sur ses limites. \rf{restsymfony}\rf{hateoas}\rf{restandhateoas}
 
 Un des points à savoir, est la progression constante de la part d'API JSON face aux API XML, comme le montre la figure suivante:
 
@@ -322,9 +322,9 @@ Un des points à savoir, est la progression constante de la part d'API JSON face
 
 \textit{Source: \blurl{http://ur1.ca/ey5o6}{Google Trends}}
 
-Durant cette recherche, j'ai découvert la notion de HATEOAS \textit{(Hypermedia As The Engine Of Application State)}. Il s'agit d'un concept d'architecture de l'application pour rendre l'API `` Explorable '', c'est à dire qu'il est possible de se déplacer dans l'API avec des `` liens '' pour découvrir les opérations disponibles.
+Durant cette recherche, j'ai découvert la notion de HATEOAS \textit{(Hypermedia As The Engine Of Application State)}. Il s'agit d'un concept d'architecture de l'application pour rendre l'API `` Explorable '', c'est-à-dire qu'il est possible de se déplacer dans l'API avec des `` liens '' pour découvrir les opérations disponibles.
 
-HATEOAS est décrit dans le Modèle de Maturité de Richardson \rf{richardson} comme étant le troisième niveau de maturité d'une application REST, les deux premiers étant les Ressources et les Verbes HTTP. Il apporte une dimension semantique aux API.
+HATEOAS est décrit dans le Modèle de Maturité de Richardson \rf{richardson} comme étant le troisième niveau de maturité d'une application REST, les deux premiers étant les Ressources et les Verbes HTTP. Il apporte une dimension sémantique aux API.
 
 \begin{figure}[H]
 \begin{center}
@@ -337,7 +337,7 @@ Sachant qu'une des composantes principales de ce projet est l'Open Data, l'API R
 
 J'ai documenté toutes les opérations possibles de l'API sur Github à l'adresse suivante: \url{https://github.com/LiberTIC/ODEV2/blob/master/doc/RestAPI.md}.
 
-J'ai essayé de retourner le plus souvent les bon codes de status HTTP. \textit{(Même si je n'ai pas réussi à mettre le 418 - I'm a teapot...)}
+J'ai essayé de retourner le plus souvent les bons codes de status HTTP. \textit{(Même si je n'ai pas réussi à mettre le 418 - I'm a teapot...)}
 
 \subsection{Tests unitaires}
 
@@ -369,11 +369,11 @@ class DefaultControllerTest extends WebTestCase
 \caption{Code simplifié de Test avec Symfony}
 \end{figure}
 
-Cependant, à cause de la courte durée de mon stage, je n'ai pas pu écrire la plupart des tests unitaires de l'applications.
+Cependant, à cause de la courte durée de mon stage, je n'ai pas pu écrire la plupart des tests unitaires de l'application.
 
 \subsection{Tests de comportement}
 
-À l'instar des tests unitaires, je n'ai pas pu effectuer des tests de comportement. Cependant, je les ai préparé grâce à Behat. Pour cela, j'ai écris des fichiers de `` Scénarios '' pour décrire le comportement attendu de mon application.
+À l'instar des tests unitaires, je n'ai pas pu effectuer des tests de comportement. Cependant, je les ai préparé grâce à Behat. Pour cela, j'ai écrit des fichiers de `` Scénarios '' pour décrire le comportement attendu de mon application.
 
 \begin{figure}[H]
 \begin{center}
@@ -382,4 +382,4 @@ Cependant, à cause de la courte durée de mon stage, je n'ai pas pu écrire la 
 \caption{Scénarios de login sur l'application}
 \end{figure}
 
-L'avantage de Behat est de pouvoir écrire les scénarios en Français, pour pouvoir discuter des comportements attendu plus facilement avec les collaborateurs. En effet, il est possible de définir de nouvelles méthodes du Context pour créer de nouvelles phrases, adapté à notre application.
+L'avantage de Behat est de pouvoir écrire les scénarios en Français, pour pouvoir discuter des comportements attendu plus facilement avec les collaborateurs. En effet, il est possible de définir de nouvelles méthodes du Context pour créer de nouvelles phrases, adaptées à notre application.
