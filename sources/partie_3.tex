@@ -46,7 +46,7 @@ Symfony propose de construire une application selon la structure suivante:
 
 \subsubsection*{Les composants Symfony}
 
-Un des composants que j'ai le plus utilisé dans Symfony est: `` HTTPFoundation ''. En effet, il gère de lui même les requêtes récupérer pour les offrir dans une classe \textbf{Request} et il est possible de créer une réponse très simplement en utilisant la classe \textbf{Response}.
+Un des composants que j'ai le plus utilisé dans Symfony est: `` HTTPFoundation ''. En effet, il gère de lui-même les requêtes récupérer pour les offrir dans une classe \textbf{Request} et il est possible de créer une réponse très simplement en utilisant la classe \textbf{Response}.
 
 \begin{figure}[H]
 \begin{lstlisting}[frame=single]
@@ -91,7 +91,7 @@ Les trois premières classes étant liées à SabreDAV, j'en parlerai dans la se
 
 Dans ce dossier, j'ai déposé les classes de mes Contrôleurs (\textit{sachant que Symfony respecte le design pattern MVC}).
 
-La première classe, \textbf{DefaultController} est le contrôleur le plus léger (2 fonctions): indexAction pour afficher la page d'accueil du site et testAction qui m'a servi à écrire quelques lignes de php pour tester rapidement mon code.
+La première classe, \textbf{DefaultController} est le contrôleur le plus léger (2 fonctions): indexAction pour afficher la page d'accueil du site et testAction qui m'a servi à écrire quelques lignes de PHP pour tester rapidement mon code.
 
 La seconde classe, \textbf{CalDAVController} est le contrôleur permettant de faire le lien avec SabreDAV (plus d'explication dans la section 3.2).
 
@@ -129,7 +129,7 @@ Ce dossier est en lien avec le dossier \textit{app/Resource/}. En effet, il poss
 
 Un service (dans Symfony) est un composant, un module, qui remplit une fonction et qui peut être injecté dans le conteneur de dépendance pour être rendu accessible dans toute l'application. Cette fonction peut être très simple: envoyer des e-mails, vérifier qu'un texte n'est pas un spam, etc. Un service est donc un objet PHP qui a pour vocation d'être accessible depuis n'importe où dans le code. Pour chaque fonctionnalité dont je peux avoir besoin dans mon application, je peux créer un ou plusieurs services.
 
-Symfony utilise un `` ServiceContainer '' qui enregistre tout les services. Il est ainsi possible d'accèder aux services depuis les contrôleurs facilement:
+Symfony utilise un `` ServiceContainer '' qui enregistre tous les services. Il est ainsi possible d'accéder aux services depuis les contrôleurs facilement:
 
 \begin{figure}[H]
 \begin{lstlisting}[frame=single]
@@ -157,13 +157,13 @@ Le code précédent est une démonstration de l'appel au service \textbf{Slugify
 
 \subsection{Intégration de SabreDAV}
 
-Après avoir décidé d'utiliser le protocole CalDAV pour le projet, j'ai cherché une librairie PHP permettant d'implémenter CalDAV dans Symfony. Malheureusement, il n'existe pas de Bundle tout prêt pour cette utilisation. Cependant, durant ma recherche, j'ai découvert \textbf{SabreDAV}. Il s'agit d'un serveur php capable de gérer les rêquetes ``PROPPATCH'', ``MKCALENDAR'', etc. propres à CalDAV.
+Après avoir décidé d'utiliser le protocole CalDAV pour le projet, j'ai cherché une librairie PHP permettant d'implémenter CalDAV dans Symfony. Malheureusement, il n'existe pas de Bundle tout prêt pour cette utilisation. Cependant, durant ma recherche, j'ai découvert \textbf{SabreDAV}. Il s'agit d'un serveur php capable de gérer les requêtes ``PROPPATCH'', ``MKCALENDAR'', etc. propres à CalDAV.
 
 SabreDAV est un projet Open Source développé par Fruux. Fruux est une entreprise éditrice qui fait partie du \textbf{Calendaring and Scheduling Consortium}, discutant sur le standard CalDAV, au côté d'Apple, Google, IBM et d'autres.
 
 SabreDAV possède sa propre architecture, il a donc fallu l'intégrer dans l'application. Pour cela, j'ai créé un Contrôleur spécialement pour la partie CalDAV (CalDAVController.php). Au niveau des routes, j'ai les ai toutes redirigées vers la méthode `` indexAction '' du contrôleur. Ainsi, j'ai pu transmettre la requête directement au système de SabreDAV.
 
-Le problème que j'ai rencontré par la suite était le fait que SabreDAV gérait lui-même la constuction et l'envoi de la réponse, ce qui perturbait le fonctionnement de Symfony.
+Le problème que j'ai rencontré par la suite était le fait que SabreDAV gérait lui-même la construction et l'envoi de la réponse, ce qui perturbait le fonctionnement de Symfony.
 
 Grâce à de nombreuses recherches sur le sujet, j'ai découvert que Symfony proposait une classe, \textbf{StreamedResponse}, permettant de gérer ce cas de figure. En effet, StreamedResponse prend en argument une fonction de callback dans laquelle la réponse envoyée par SabreDAV sera attrapée par Symfony puis renvoyée vers l'utilisateur. Cela permet aussi de logger les messages renvoyés, ce qui m'a été très utile tout au long du développement de l'application.
 
@@ -369,7 +369,7 @@ Cependant, à cause de la courte durée de mon stage, je n'ai pas pu écrire la 
 
 \subsection{Tests de comportement}
 
-À l'instar des tests unitaires, je n'ai pas pu effectuer des tests de comportement. Cependant, je les ai préparé grâce à Behat. Pour cela, j'ai écrit des fichiers de `` Scénarios '' pour décrire le comportement attendu de mon application.
+À l'instar des tests unitaires, je n'ai pas pu effectuer des tests de comportement. Cependant, je les ai préparés grâce à Behat. Pour cela, j'ai écrit des fichiers de `` Scénarios '' pour décrire le comportement attendu de mon application.
 
 \begin{figure}[H]
 \begin{center}
@@ -378,6 +378,6 @@ Cependant, à cause de la courte durée de mon stage, je n'ai pas pu écrire la 
 \caption{Scénarios de login sur l'application}
 \end{figure}
 
-L'écriture des scénarios utilise le language Gerkhin, créé spécialement pour les tests de comportements.
+L'écriture des scénarios utilise le langage Gerkhin, créé spécialement pour les tests de comportements.
 
-L'avantage de Behat est de pouvoir écrire les scénarios en Français, pour pouvoir discuter des comportements attendu plus facilement avec les collaborateurs. En effet, il est possible de définir de nouvelles méthodes du Context pour créer de nouvelles phrases, adaptées à notre application.
+L'avantage de Behat est de pouvoir écrire les scénarios en Français, pour pouvoir discuter des comportements attendus plus facilement avec les collaborateurs. En effet, il est possible de définir de nouvelles méthodes du Context pour créer de nouvelles phrases, adaptées à notre application.
